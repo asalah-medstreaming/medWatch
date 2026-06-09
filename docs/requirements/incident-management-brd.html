@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Incident Management Business Requirements Document | MedWatch Documentation Portal</title>
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body>
+<div class="layout">
+
+<nav class="sidebar" aria-label="Portal Navigation">
+  <h2>MedWatch Docs</h2>
+  <ul>
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../traceability.html">Traceability Matrix</a></li>
+    <li><a href="../architecture/operations-monitoring-architecture.html">Architecture</a></li>
+  </ul>
+  <h3>Catalogs</h3>
+  <ul>
+    <li><a href="../index.html#epic-catalog">Epics</a></li>
+    <li><a href="../index.html#requirements-catalog">Requirements</a></li>
+    <li><a href="../index.html#stories-catalog">User Stories</a></li>
+    <li><a href="../index.html#backlog-catalog">Backlog</a></li>
+  </ul>
+</nav>
+
+<main class="content">
+  <header>
+    <p class="breadcrumbs"><a href="../index.html">Home</a> / <a href="../index.html#requirements-catalog">Requirements</a> / Incident Management</p>
+    <h1>Incident Management Business Requirements Document</h1>
+  </header>
+  <section class="toc" aria-labelledby="toc-heading">
+    <h2 id="toc-heading">Table of Contents</h2>
+    <ol>
+      <li><a href="#sec-1">1. Executive Summary</a></li><li><a href="#sec-2">2. Objectives and Assumptions</a></li><li><a href="#sec-3">3. Business Requirements</a></li><li><a href="#sec-4">4. Business Rules and Constraints</a></li><li><a href="#sec-5">5. Acceptance Criteria Summary</a></li><li><a href="#sec-6">6. Traceability Links</a></li><li><a href="#sec-7">7. Revision History</a></li>
+    </ol>
+  </section>
+  
+  <section id="sec-1"><h2>1. Executive Summary</h2><p>This BRD captures prioritized business requirements for incident management in the Medstreaming internal Operations Monitoring Platform.</p></section>
+  <section id="sec-2"><h2>2. Objectives and Assumptions</h2><p>Objective: establish measurable operational outcomes with reusable monitoring domains and healthcare-ready examples (HL7, PACS, interface services).</p></section>
+  <section id="sec-3"><h2>3. Business Requirements</h2>
+    <table><thead><tr><th>Requirement ID</th><th>Requirement Statement</th><th>User Story Links</th><th>Backlog Links</th></tr></thead><tbody><tr><td>INC-REQ-001</td><td>The platform shall monitor incident management with ownership mapping and health state visibility.</td><td><a href="../user-stories/incident-management-user-stories.html#inc-req-001">Stories</a></td><td><a href="../backlog/incident-management-backlog.html#inc-req-001">Tasks</a></td></tr>
+<tr><td>INC-REQ-002</td><td>The platform shall support threshold-based alerting, severity, and escalation aligned to operations policy.</td><td><a href="../user-stories/incident-management-user-stories.html#inc-req-002">Stories</a></td><td><a href="../backlog/incident-management-backlog.html#inc-req-002">Tasks</a></td></tr>
+<tr><td>INC-REQ-003</td><td>The platform shall maintain auditable history, runbook reference, and retention policy for operational decisions.</td><td><a href="../user-stories/incident-management-user-stories.html#inc-req-003">Stories</a></td><td><a href="../backlog/incident-management-backlog.html#inc-req-003">Tasks</a></td></tr></tbody></table>
+  </section>
+  <section id="sec-4"><h2>4. Business Rules and Constraints</h2><ul><li>Role-based access controls for operational actions.</li><li>Audit trail for rule, alert, incident, and remediation changes.</li><li>Maintenance windows suppress non-actionable noise.</li><li>Safe automation governance and explicit approvals for risky actions.</li></ul></section>
+  <section id="sec-5"><h2>5. Acceptance Criteria Summary</h2>
+    <table><thead><tr><th>AC Ref</th><th>Criteria</th><th>Requirement ID</th></tr></thead><tbody>
+      <tr><td>AC-1</td><td>Operational health and ownership visibility is complete and current.</td><td>INC-REQ-001</td></tr>
+      <tr><td>AC-2</td><td>Threshold, severity, escalation, and suppression are consistently applied.</td><td>INC-REQ-002</td></tr>
+      <tr><td>AC-3</td><td>Audit and retention data supports investigation and reporting.</td><td>INC-REQ-003</td></tr>
+    </tbody></table>
+  </section>
+  <section id="sec-6"><h2>6. Traceability Links</h2><p>See <a href="../traceability.html#incident-management-trace">Traceability Matrix Entry</a>.</p></section>
+  <section id="sec-7"><h2>7. Revision History</h2><table><thead><tr><th>Date</th><th>Version</th><th>Change</th><th>Author</th></tr></thead><tbody><tr><td>2026-06-09</td><td>1.0</td><td>Initial BRD</td><td>Copilot Coding Agent</td></tr></tbody></table></section>
+
+</main>
+</div>
+</body>
+</html>
