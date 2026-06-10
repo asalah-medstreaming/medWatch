@@ -11,7 +11,7 @@
   --shadow: 0 10px 28px rgba(17, 79, 141, 0.08);
   --foundation: #2563eb;
   --core-platform: #2f855a;
-  --operational: #dd6b20;
+  --operational: #c2410c;
   --automation: #7c3aed;
   --presentation: #dc2626;
   --advanced: #6b7280;
@@ -50,16 +50,24 @@ input[type=search] { width: 100%; max-width: 620px; padding: .75rem .85rem; bord
 .story-line, .trace-path { color: var(--muted); }
 .eyebrow { display: inline-block; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--brand-dark); margin-bottom: .4rem; }
 .phase-chip, .status-chip { display: inline-flex; align-items: center; gap: .35rem; border-radius: 999px; padding: .25rem .6rem; font-size: .8rem; font-weight: 700; color: #fff; }
-.phase-foundation, .phase-chip.phase-foundation { background: var(--foundation); color: #fff; }
-.phase-core-platform, .phase-chip.phase-core-platform { background: var(--core-platform); color: #fff; }
-.phase-operational, .phase-chip.phase-operational { background: var(--operational); color: #fff; }
-.phase-automation, .phase-chip.phase-automation { background: var(--automation); color: #fff; }
-.phase-presentation, .phase-chip.phase-presentation { background: var(--presentation); color: #fff; }
-.phase-advanced, .phase-chip.phase-advanced { background: var(--advanced); color: #fff; }
+.phase-chip.phase-foundation, .phase-roadmap .phase-foundation, .sprint-card.phase-foundation { background: var(--foundation); color: #fff; }
+.phase-chip.phase-core-platform, .phase-roadmap .phase-core-platform, .sprint-card.phase-core-platform { background: var(--core-platform); color: #fff; }
+.phase-chip.phase-operational, .phase-roadmap .phase-operational, .sprint-card.phase-operational { background: var(--operational); color: #fff; }
+.phase-chip.phase-automation, .phase-roadmap .phase-automation, .sprint-card.phase-automation { background: var(--automation); color: #fff; }
+.phase-chip.phase-presentation, .phase-roadmap .phase-presentation, .sprint-card.phase-presentation { background: var(--presentation); color: #fff; }
+.phase-chip.phase-advanced, .phase-roadmap .phase-advanced, .sprint-card.phase-advanced { background: var(--advanced); color: #fff; }
 .status-mvp { background: var(--status-mvp); }
 .status-backlog { background: var(--status-backlog); }
 .status-future { background: var(--status-future); }
-.sprint-panel, .sprint-details { border-width: 2px; }
+.sprint-panel, .sprint-details { border-width: 2px; color: var(--text); }
+.sprint-panel.phase-foundation, .sprint-details.phase-foundation { background: #eef4ff; border-color: #bfd3ff; }
+.sprint-panel.phase-core-platform, .sprint-details.phase-core-platform { background: #eefaf4; border-color: #b7e2cb; }
+.sprint-panel.phase-operational, .sprint-details.phase-operational { background: #fff4eb; border-color: #ffd7be; }
+.sprint-panel.phase-automation, .sprint-details.phase-automation { background: #f5f0ff; border-color: #d9c7ff; }
+.sprint-panel.phase-presentation, .sprint-details.phase-presentation { background: #fff0f2; border-color: #ffc8d0; }
+.sprint-panel.phase-advanced, .sprint-details.phase-advanced { background: #f4f5f7; border-color: #d6d8de; }
+.sprint-panel .info-card, .sprint-details .info-card, .sprint-panel .trace-card, .sprint-details .trace-card { color: var(--text); }
+.sprint-panel .story-line, .sprint-details .story-line, .sprint-panel .trace-path, .sprint-details .trace-path { color: var(--muted); }
 .phase-roadmap { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: .8rem; }
 .phase-roadmap li { color: #fff; border-radius: 16px; padding: 1rem; min-height: 140px; box-shadow: var(--shadow); }
 .phase-roadmap li span { display: block; margin-top: .55rem; font-size: .92rem; }
