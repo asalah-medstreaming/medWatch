@@ -8,16 +8,19 @@
 </head>
 <body>
 <div class="layout">
-
 <nav class="sidebar" aria-label="Portal Navigation">
-  <h2>MedWatch Docs</h2>
-  <ul>
+  <div class="sidebar-brand">
+    <h2>MedWatch Docs</h2>
+    <p>MVP delivery portal</p>
+  </div>
+  <ul class="nav-primary">
     <li><a href="../index.html">Home</a></li>
+    <li><a href="../sprints.html">Sprint Planning</a></li>
     <li><a href="../traceability.html">Traceability Matrix</a></li>
     <li><a href="../architecture/operations-monitoring-architecture.html">Architecture</a></li>
   </ul>
   <h3>Catalogs</h3>
-  <ul>
+  <ul class="nav-secondary">
     <li><a href="../index.html#epic-catalog">Epics</a></li>
     <li><a href="../index.html#requirements-catalog">Requirements</a></li>
     <li><a href="../index.html#stories-catalog">User Stories</a></li>
@@ -25,37 +28,45 @@
     <li><a href="../implementation-backlog.html">Implementation Backlog</a></li>
   </ul>
 </nav>
-
 <main class="content">
-  <header>
+  <header class="page-header">
     <p class="breadcrumbs"><a href="../index.html">Home</a> / <a href="../index.html#requirements-catalog">Requirements</a> / Automation Management</p>
     <h1>Automation Management Business Requirements Document</h1>
+    <p class="lead">Enhanced requirement detail for automation management with epic, story, and sprint traceability.</p>
   </header>
   <section class="toc" aria-labelledby="toc-heading">
-    <h2 id="toc-heading">Table of Contents</h2>
-    <ol>
-      <li><a href="#sec-1">1. Executive Summary</a></li><li><a href="#sec-2">2. Objectives and Assumptions</a></li><li><a href="#sec-3">3. Business Requirements</a></li><li><a href="#sec-4">4. Business Rules and Constraints</a></li><li><a href="#sec-5">5. Acceptance Criteria Summary</a></li><li><a href="#sec-6">6. Traceability Links</a></li><li><a href="#sec-7">7. Revision History</a></li>
-    </ol>
-  </section>
+  <h2 id="toc-heading">Table of Contents</h2>
+  <ol><li><a href="#executive-summary">Executive Summary</a></li><li><a href="#parent-traceability">Parent Epic and Sprint</a></li><li><a href="#enhanced-requirements">Enhanced Requirements</a></li><li><a href="#related-user-stories">Related User Stories</a></li><li><a href="#revision-history">Revision History</a></li></ol>
+</section>
+  <section id="executive-summary"><h2>Executive Summary</h2><p>This BRD refreshes automation management with enhanced descriptions from the MVP-refactored backlog, including explicit business objective, scope, implementation guidance, and expected outcome language.</p></section><section id="parent-traceability" class="traceability-summary"><h2>Parent Epic and Sprint</h2><ul class="nested-list"><li><strong>Epic:</strong> <a href="../epics/automation-management-epic.html">Automation Management Epic Overview</a></li><li><strong>Sprint:</strong> <a href="../sprints.html#sprint-4">Sprint 4</a></li><li><strong>Phase:</strong> <span class="phase-chip phase-automation">Automation</span></li></ul></section><section id="enhanced-requirements"><h2>Enhanced Requirements</h2><div class="card-grid"><article class="trace-card" id="aut-req-001"><h3><span class="eyebrow">AUT-REQ-001</span> Deliver Reliable Operations Automation Oversight Governance</h3><p class="story-line">The platform shall support reliable operations automation oversight so that operations teams can run the capability confidently with traceable oversight and repeatable execution.</p><ul class="nested-list">
+      <li><strong>Business Objective:</strong> Scale operational consistency by governing automated workflows and their execution controls.</li>
+      <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+      <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+      <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+      <li><strong>Sprint:</strong> <span class="phase-chip phase-automation">Sprint 4</span></li>
+      <li><strong>Phase:</strong> Automation</li>
+      <li><strong>Status:</strong> <span class="status-chip status-mvp">MVP</span></li>
+      <li><strong>Dependencies:</strong><ul><li><a href="../backlog/automation-management-backlog.html#aut-req-003">Provide Reliable Operations Automation Oversight Control Policies</a></li></ul></li>
+    </ul><p><strong>Linked Story:</strong> <a href="../user-stories/automation-management-user-stories.html#aut-req-001">AUT-US-001</a> · <strong>Linked Task:</strong> <a href="../backlog/automation-management-backlog.html#aut-req-001">AUT-TASK-001</a></p></article><article class="trace-card" id="aut-req-002"><h3><span class="eyebrow">AUT-REQ-002</span> Enable Reliable Operations Automation Oversight Setup</h3><p class="story-line">The platform shall support reliable operations automation oversight so that operations teams can start using reliable operations automation oversight with clear accountability and consistent setup standards.</p><ul class="nested-list">
+      <li><strong>Business Objective:</strong> Scale operational consistency by governing automated workflows and their execution controls.</li>
+      <li><strong>Scope:</strong> Create the initial reliable operations automation oversight capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+      <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+      <li><strong>Expected Outcome:</strong> Operations teams can start using reliable operations automation oversight with clear accountability and consistent setup standards.</li>
+      <li><strong>Sprint:</strong> <span class="phase-chip phase-automation">Sprint 4</span></li>
+      <li><strong>Phase:</strong> Automation</li>
+      <li><strong>Status:</strong> <span class="status-chip status-mvp">MVP</span></li>
+      <li><strong>Dependencies:</strong><ul><li><a href="../backlog/agent-management-backlog.html#agt-req-002">Enable Trusted Monitoring Asset Enrollment Setup</a></li><li><a href="../backlog/collection-management-backlog.html#col-req-002">Enable Consistent Operational Data Intake Setup</a></li></ul></li>
+    </ul><p><strong>Linked Story:</strong> <a href="../user-stories/automation-management-user-stories.html#aut-req-002">AUT-US-002</a> · <strong>Linked Task:</strong> <a href="../backlog/automation-management-backlog.html#aut-req-002">AUT-TASK-002</a></p></article><article class="trace-card" id="aut-req-003"><h3><span class="eyebrow">AUT-REQ-003</span> Provide Reliable Operations Automation Oversight Control Policies</h3><p class="story-line">The platform shall support reliable operations automation oversight so that operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</p><ul class="nested-list">
+      <li><strong>Business Objective:</strong> Scale operational consistency by governing automated workflows and their execution controls.</li>
+      <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+      <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+      <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+      <li><strong>Sprint:</strong> <span class="phase-chip phase-automation">Sprint 4</span></li>
+      <li><strong>Phase:</strong> Automation</li>
+      <li><strong>Status:</strong> <span class="status-chip status-mvp">MVP</span></li>
+      <li><strong>Dependencies:</strong><ul><li><a href="../backlog/automation-management-backlog.html#aut-req-002">Enable Reliable Operations Automation Oversight Setup</a></li></ul></li>
+    </ul><p><strong>Linked Story:</strong> <a href="../user-stories/automation-management-user-stories.html#aut-req-003">AUT-US-003</a> · <strong>Linked Task:</strong> <a href="../backlog/automation-management-backlog.html#aut-req-003">AUT-TASK-003</a></p></article></div></section><section id="related-user-stories" class="related-user-stories"><h2>Related User Stories</h2><ul class="story-list related-list"><li><a href="../user-stories/automation-management-user-stories.html#aut-req-001">AUT-US-001 · Deliver Reliable Operations Automation Oversight Governance</a></li><li><a href="../user-stories/automation-management-user-stories.html#aut-req-002">AUT-US-002 · Enable Reliable Operations Automation Oversight Setup</a></li><li><a href="../user-stories/automation-management-user-stories.html#aut-req-003">AUT-US-003 · Provide Reliable Operations Automation Oversight Control Policies</a></li></ul></section><section id="revision-history"><h2>Revision History</h2><table><thead><tr><th>Date</th><th>Version</th><th>Change</th><th>Author</th></tr></thead><tbody><tr><td>2026-06-10</td><td>2.0</td><td>Replaced generic requirement text with enhanced backlog descriptions and added sprint traceability.</td><td>Copilot Coding Agent</td></tr></tbody></table></section>
   
-  <section id="sec-1"><h2>1. Executive Summary</h2><p>This BRD captures prioritized business requirements for automation management in the Medstreaming internal Operations Monitoring Platform.</p></section>
-  <section id="sec-2"><h2>2. Objectives and Assumptions</h2><p>Objective: establish measurable operational outcomes with reusable monitoring domains and healthcare-ready examples (HL7, PACS, interface services).</p></section>
-  <section id="sec-3"><h2>3. Business Requirements</h2>
-    <table><thead><tr><th>Requirement ID</th><th>Requirement Statement</th><th>User Story Links</th><th>Backlog Links</th></tr></thead><tbody><tr><td>AUT-REQ-001</td><td>The platform shall monitor automation management with ownership mapping and health state visibility.</td><td><a href="../user-stories/automation-management-user-stories.html#aut-req-001">Stories</a></td><td><a href="../backlog/automation-management-backlog.html#aut-req-001">Tasks</a></td></tr>
-<tr><td>AUT-REQ-002</td><td>The platform shall support threshold-based alerting, severity, and escalation aligned to operations policy.</td><td><a href="../user-stories/automation-management-user-stories.html#aut-req-002">Stories</a></td><td><a href="../backlog/automation-management-backlog.html#aut-req-002">Tasks</a></td></tr>
-<tr><td>AUT-REQ-003</td><td>The platform shall maintain auditable history, runbook reference, and retention policy for operational decisions.</td><td><a href="../user-stories/automation-management-user-stories.html#aut-req-003">Stories</a></td><td><a href="../backlog/automation-management-backlog.html#aut-req-003">Tasks</a></td></tr></tbody></table>
-  </section>
-  <section id="sec-4"><h2>4. Business Rules and Constraints</h2><ul><li>Role-based access controls for operational actions.</li><li>Audit trail for rule, alert, incident, and remediation changes.</li><li>Maintenance windows suppress non-actionable noise.</li><li>Safe automation governance and explicit approvals for risky actions.</li></ul></section>
-  <section id="sec-5"><h2>5. Acceptance Criteria Summary</h2>
-    <table><thead><tr><th>AC Ref</th><th>Criteria</th><th>Requirement ID</th></tr></thead><tbody>
-      <tr><td>AC-1</td><td>Operational health and ownership visibility is complete and current.</td><td>AUT-REQ-001</td></tr>
-      <tr><td>AC-2</td><td>Threshold, severity, escalation, and suppression are consistently applied.</td><td>AUT-REQ-002</td></tr>
-      <tr><td>AC-3</td><td>Audit and retention data supports investigation and reporting.</td><td>AUT-REQ-003</td></tr>
-    </tbody></table>
-  </section>
-  <section id="sec-6"><h2>6. Traceability Links</h2><p>See <a href="../traceability.html#automation-management-trace">Traceability Matrix Entry</a>.</p></section>
-  <section id="sec-7"><h2>7. Revision History</h2><table><thead><tr><th>Date</th><th>Version</th><th>Change</th><th>Author</th></tr></thead><tbody><tr><td>2026-06-09</td><td>1.0</td><td>Initial BRD</td><td>Copilot Coding Agent</td></tr></tbody></table></section>
-
 </main>
 </div>
 </body>
