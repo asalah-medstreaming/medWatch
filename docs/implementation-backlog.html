@@ -5,6 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Implementation-Ready Prioritized Backlog | MedWatch Documentation Portal</title>
   <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .sprint-section {
+      border-radius: 16px;
+      border: 2px solid;
+      padding: 1.2rem 1.3rem;
+      margin-bottom: 1.5rem;
+    }
+    .sprint-section.phase-foundation { background: #eef4ff; border-color: #bfd3ff; color: #102033; }
+    .sprint-section.phase-core-platform { background: #eefaf4; border-color: #b7e2cb; color: #102033; }
+    .sprint-section.phase-operational { background: #fff4eb; border-color: #ffd7be; color: #102033; }
+    .sprint-section.phase-automation { background: #f5f0ff; border-color: #d9c7ff; color: #102033; }
+    .sprint-section.phase-presentation { background: #fff0f2; border-color: #ffc8d0; color: #102033; }
+    .sprint-section.phase-advanced { background: #f4f5f7; border-color: #d6d8de; color: #102033; }
+    .sprint-section h3 { margin-top: 0; }
+    .sprint-meta { margin: .4rem 0 .8rem; font-size: 1rem; }
+    .sprint-info-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: .8rem; margin-bottom: 1.1rem; }
+    .sprint-info-card { background: #fff; border: 1px solid #d8e1ec; border-radius: 12px; padding: .85rem 1rem; color: #102033; }
+    .sprint-info-card strong { display: block; margin-bottom: .3rem; color: #114f8d; }
+    .sprint-info-card p { margin: 0; font-size: .94rem; color: #102033; }
+    .sprint-task-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: .9rem; margin-top: .8rem; }
+    .task-card { background: #fff; border: 1px solid #d8e1ec; border-radius: 14px; padding: 1rem; color: #102033; }
+    .task-card h4 { margin: .2rem 0 .6rem; font-size: 1rem; color: #102033; }
+    .task-card .eyebrow { font-size: .76rem; letter-spacing: .07em; text-transform: uppercase; color: #114f8d; margin: 0 0 .2rem; font-weight: 700; }
+    .task-desc { padding-left: 1.1rem; margin: 0 0 .6rem; font-size: .91rem; color: #102033; }
+    .task-desc li { margin-bottom: .3rem; }
+    .dep-label { margin: .4rem 0 .2rem; font-size: .89rem; color: #526175; }
+    .dep-list { padding-left: 1.1rem; margin: 0; font-size: .87rem; color: #526175; }
+    .layer-row td { background: #e8eef6; font-weight: 700; color: #114f8d; padding: .55rem .75rem; }
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th { background: #114f8d; color: #fff; padding: .6rem .75rem; text-align: left; }
+    td { padding: .5rem .75rem; border-bottom: 1px solid #e5eaf2; vertical-align: top; color: #102033; }
+    tr:hover td { background: #f7faff; }
+  </style>
 </head>
 <body>
 <div class="layout">
@@ -31,10 +64,10 @@
 </nav>
 
 <main class="content">
-  <header>
+  <header class="page-header">
     <p class="breadcrumbs"><a href="index.html">Home</a> / Implementation Backlog</p>
     <h1>Implementation-Ready Prioritized Backlog</h1>
-    <p class="lead">This view sequences all documented backlog tasks by dependency layer so prerequisites are completed before dependent capabilities.</p>
+    <p class="lead">All 63 backlog tasks sequenced by sprint and dependency layer. Prerequisites appear before dependent capabilities. Titles and descriptions are sourced directly from the latest backlog documentation.</p>
   </header>
 
   <section class="toc" aria-labelledby="toc-heading">
@@ -42,50 +75,907 @@
     <ol>
       <li><a href="#summary">1. Implementation Summary</a></li>
       <li><a href="#dependency-flow">2. Dependency Flow</a></li>
-      <li><a href="#prioritized-list">3. Prioritized Task List</a></li>
-      <li><a href="#traceability">4. Traceability and Export</a></li>
+      <li><a href="#sprint-view">3. Sprint View</a>
+        <ol>
+          <li><a href="#sprint-1">Sprint 1 – Foundation</a></li>
+          <li><a href="#sprint-2">Sprint 2 – Core Platform</a></li>
+          <li><a href="#sprint-3">Sprint 3 – Operational</a></li>
+          <li><a href="#sprint-4">Sprint 4 – Automation</a></li>
+          <li><a href="#sprint-5">Sprint 5 – Presentation</a></li>
+          <li><a href="#sprint-6">Sprint 6 – Advanced Features</a></li>
+        </ol>
+      </li>
+      <li><a href="#prioritized-list">4. Prioritized Task Table</a></li>
+      <li><a href="#dependencies">5. Dependencies Between Tasks</a></li>
+      <li><a href="#traceability">6. Traceability and Export</a></li>
     </ol>
   </section>
 
   <section id="summary">
     <h2>1. Implementation Summary</h2>
-    <p>Task extraction source set includes all catalog artifacts under epics, requirements, user stories, and backlog, with implementation sequencing driven by documented backlog tasks and dependency ordering rules.</p>
+    <p>Task information is sourced from all backlog HTML pages in the documentation portal. Sprint assignments and dependencies reflect the latest state of each backlog page.</p>
     <div class="stats-grid">
-      <article class="quick-card"><h3>Total Tasks</h3><p>63 implementation tasks</p></article>
-      <article class="quick-card"><h3>Implementation Waves</h3><p>6 waves aligned to dependency layers</p></article>
-      <article class="quick-card"><h3>Business Value</h3><p>Highest value comes from foundational controls and core monitoring coverage first.</p></article>
-      <article class="quick-card"><h3>Effort Profile</h3><p>Foundational and core layers drive the largest setup effort and unblock all later waves.</p></article>
+      <article class="quick-card"><h3>Total Tasks</h3><p>63 implementation tasks across 6 sprints</p></article>
+      <article class="quick-card"><h3>Implementation Sprints</h3><p>6 sprints aligned to dependency layers</p></article>
+      <article class="quick-card"><h3>Business Value</h3><p>Foundational controls and core monitoring deliver highest early business value.</p></article>
+      <article class="quick-card"><h3>Effort Profile</h3><p>Foundation and core layers drive the largest setup effort and unblock all later sprints.</p></article>
     </div>
   </section>
 
   <section id="dependency-flow">
     <h2>2. Dependency Flow</h2>
     <p class="dependency-flow">Foundation Layer → Core Platform Layer → Operational Layer → Automation Layer → Presentation Layer → Advanced Features</p>
-    <p>Service health and data exchange monitoring include healthcare integration coverage for HL7 and PACS services as part of the core platform phase.</p>
+    <ul class="phase-roadmap">
+      <li class="phase-foundation"><strong>Sprint 1</strong><span>Foundation: access control, asset enrollment, data intake, dashboard, infrastructure monitoring</span></li>
+      <li class="phase-core-platform"><strong>Sprint 2</strong><span>Core Platform: availability, data exchange, queue, service health monitoring</span></li>
+      <li class="phase-operational"><strong>Sprint 3</strong><span>Operational: alerting, incident management, log investigation, notifications</span></li>
+      <li class="phase-automation"><strong>Sprint 4</strong><span>Automation: automation management, maintenance windows, remediation, rule engine</span></li>
+      <li class="phase-presentation"><strong>Sprint 5</strong><span>Presentation: business process monitoring, reports</span></li>
+      <li class="phase-advanced"><strong>Sprint 6</strong><span>Advanced: AI management, auto-update management</span></li>
+    </ul>
+  </section>
+
+  <section id="sprint-view">
+    <h2>3. Sprint View</h2>
+    <p>Each sprint card below shows the sprint goal, business value, delivered capability, demonstration scenario, and all tasks within that sprint.</p>
+
+  <section id="sprint-1" class="sprint-section phase-foundation">
+    <h3>Sprint 1 <span class="phase-chip phase-foundation">Foundation</span></h3>
+    <p class="sprint-meta"><strong>Goal:</strong> Foundation controls, asset enrollment, and first-line visibility.</p>
+    <div class="sprint-info-row">
+      <div class="sprint-info-card"><strong>Business Value</strong><p>Medstreaming gains immediate operational transparency while foundational controls are established in the same sprint.</p></div>
+      <div class="sprint-info-card"><strong>Delivered Capability</strong><p>Operations teams can register monitored assets and view first-line health status in one place.</p></div>
+      <div class="sprint-info-card"><strong>Demonstration Scenario</strong><p>An operations lead onboards a newly deployed system, opens the dashboard, and confirms current health status before the daily huddle.</p></div>
+    </div>
+    <div class="sprint-task-grid">
+      <article class="task-card phase-foundation">
+        <p class="eyebrow">ACA-TASK-001</p>
+        <h4>Deliver Secure and Accountable Monitoring Access Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Protect monitoring workflows so only authorized staff can view, change, and act on sensitive operational information.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Secure and Accountable Monitoring Access Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-foundation">
+        <p class="eyebrow">ACA-TASK-002</p>
+        <h4>Enable Secure and Accountable Monitoring Access Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Protect monitoring workflows so only authorized staff can view, change, and act on sensitive operational information.</li>
+          <li><strong>Scope:</strong> Create the initial secure and accountable monitoring access capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using secure and accountable monitoring access with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><em>No upstream dependency</em></p>
+      </article>
+      <article class="task-card phase-foundation">
+        <p class="eyebrow">ACA-TASK-003</p>
+        <h4>Provide Secure and Accountable Monitoring Access Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Protect monitoring workflows so only authorized staff can view, change, and act on sensitive operational information.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Secure and Accountable Monitoring Access Setup</li></ul>
+      </article>
+      <article class="task-card phase-foundation">
+        <p class="eyebrow">AGT-TASK-001</p>
+        <h4>Deliver Trusted Monitoring Asset Enrollment Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Ensure every monitored asset has clear ownership and accountability so operations teams can act quickly and confidently.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Trusted Monitoring Asset Enrollment Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-foundation">
+        <p class="eyebrow">AGT-TASK-002</p>
+        <h4>Enable Trusted Monitoring Asset Enrollment Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Ensure every monitored asset has clear ownership and accountability so operations teams can act quickly and confidently.</li>
+          <li><strong>Scope:</strong> Create the initial trusted monitoring asset enrollment capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using trusted monitoring asset enrollment with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><em>No upstream dependency</em></p>
+      </article>
+      <article class="task-card phase-foundation">
+        <p class="eyebrow">AGT-TASK-003</p>
+        <h4>Provide Trusted Monitoring Asset Enrollment Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Ensure every monitored asset has clear ownership and accountability so operations teams can act quickly and confidently.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Trusted Monitoring Asset Enrollment Setup</li></ul>
+      </article>
+      <article class="task-card phase-foundation">
+        <p class="eyebrow">COL-TASK-001</p>
+        <h4>Deliver Consistent Operational Data Intake Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Ensure operational information is gathered consistently so health decisions are based on complete and current evidence.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Consistent Operational Data Intake Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-foundation">
+        <p class="eyebrow">COL-TASK-002</p>
+        <h4>Enable Consistent Operational Data Intake Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Ensure operational information is gathered consistently so health decisions are based on complete and current evidence.</li>
+          <li><strong>Scope:</strong> Create the initial consistent operational data intake capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using consistent operational data intake with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><em>No upstream dependency</em></p>
+      </article>
+      <article class="task-card phase-foundation">
+        <p class="eyebrow">COL-TASK-003</p>
+        <h4>Provide Consistent Operational Data Intake Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Ensure operational information is gathered consistently so health decisions are based on complete and current evidence.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Consistent Operational Data Intake Setup</li></ul>
+      </article>
+      <article class="task-card phase-foundation">
+        <p class="eyebrow">DSH-TASK-001</p>
+        <h4>Deliver Unified Operations Situation Awareness Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Provide a single operational view that helps teams understand current risk and health status at a glance.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Unified Operations Situation Awareness Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-foundation">
+        <p class="eyebrow">DSH-TASK-002</p>
+        <h4>Enable Unified Operations Situation Awareness Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Provide a single operational view that helps teams understand current risk and health status at a glance.</li>
+          <li><strong>Scope:</strong> Create the initial unified operations situation awareness capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using unified operations situation awareness with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Trusted Monitoring Asset Enrollment Setup</li><li>Enable Consistent Operational Data Intake Setup</li></ul>
+      </article>
+      <article class="task-card phase-foundation">
+        <p class="eyebrow">DSH-TASK-003</p>
+        <h4>Provide Unified Operations Situation Awareness Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Provide a single operational view that helps teams understand current risk and health status at a glance.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Unified Operations Situation Awareness Setup</li></ul>
+      </article>
+      <article class="task-card phase-foundation">
+        <p class="eyebrow">INFRA-TASK-001</p>
+        <h4>Deliver Infrastructure Health Visibility Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Give operations teams clear visibility into computing resource strain before service quality is impacted.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Infrastructure Health Visibility Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-foundation">
+        <p class="eyebrow">INFRA-TASK-002</p>
+        <h4>Enable Infrastructure Health Visibility Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Give operations teams clear visibility into computing resource strain before service quality is impacted.</li>
+          <li><strong>Scope:</strong> Create the initial infrastructure health visibility capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using infrastructure health visibility with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Trusted Monitoring Asset Enrollment Setup</li><li>Enable Consistent Operational Data Intake Setup</li></ul>
+      </article>
+      <article class="task-card phase-foundation">
+        <p class="eyebrow">INFRA-TASK-003</p>
+        <h4>Provide Infrastructure Health Visibility Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Give operations teams clear visibility into computing resource strain before service quality is impacted.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Infrastructure Health Visibility Setup</li></ul>
+      </article>
+    </div>
+  </section>
+  <section id="sprint-2" class="sprint-section phase-core-platform">
+    <h3>Sprint 2 <span class="phase-chip phase-core-platform">Core Platform</span></h3>
+    <p class="sprint-meta"><strong>Goal:</strong> Core monitoring coverage across availability, queues, services, and data exchange.</p>
+    <div class="sprint-info-row">
+      <div class="sprint-info-card"><strong>Business Value</strong><p>Operations teams gain full monitoring coverage across all core platform capabilities.</p></div>
+      <div class="sprint-info-card"><strong>Delivered Capability</strong><p>Operations teams can monitor availability, queue throughput, service health, and clinical data exchange from a single platform.</p></div>
+      <div class="sprint-info-card"><strong>Demonstration Scenario</strong><p>An operations engineer checks availability metrics and service health across all monitored endpoints after a system patch.</p></div>
+    </div>
+    <div class="sprint-task-grid">
+      <article class="task-card phase-core-platform">
+        <p class="eyebrow">AVM-TASK-001</p>
+        <h4>Deliver Operational Availability Transparency Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Support reliability commitments by continuously showing uptime performance across monitored systems.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Operational Availability Transparency Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-core-platform">
+        <p class="eyebrow">AVM-TASK-002</p>
+        <h4>Enable Operational Availability Transparency Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Support reliability commitments by continuously showing uptime performance across monitored systems.</li>
+          <li><strong>Scope:</strong> Create the initial operational availability transparency capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using operational availability transparency with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Trusted Monitoring Asset Enrollment Setup</li><li>Enable Consistent Operational Data Intake Setup</li></ul>
+      </article>
+      <article class="task-card phase-core-platform">
+        <p class="eyebrow">AVM-TASK-003</p>
+        <h4>Provide Operational Availability Transparency Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Support reliability commitments by continuously showing uptime performance across monitored systems.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Operational Availability Transparency Setup</li></ul>
+      </article>
+      <article class="task-card phase-core-platform">
+        <p class="eyebrow">DEM-TASK-001</p>
+        <h4>Deliver Clinical Data Exchange Reliability Visibility Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Protect continuity of clinical information sharing by surfacing degraded or delayed exchange activity.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Clinical Data Exchange Reliability Visibility Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-core-platform">
+        <p class="eyebrow">DEM-TASK-002</p>
+        <h4>Enable Clinical Data Exchange Reliability Visibility Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Protect continuity of clinical information sharing by surfacing degraded or delayed exchange activity.</li>
+          <li><strong>Scope:</strong> Create the initial clinical data exchange reliability visibility capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using clinical data exchange reliability visibility with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Trusted Monitoring Asset Enrollment Setup</li><li>Enable Consistent Operational Data Intake Setup</li></ul>
+      </article>
+      <article class="task-card phase-core-platform">
+        <p class="eyebrow">DEM-TASK-003</p>
+        <h4>Provide Clinical Data Exchange Reliability Visibility Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Protect continuity of clinical information sharing by surfacing degraded or delayed exchange activity.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Clinical Data Exchange Reliability Visibility Setup</li></ul>
+      </article>
+      <article class="task-card phase-core-platform">
+        <p class="eyebrow">QMON-TASK-001</p>
+        <h4>Deliver Workload Processing Flow Visibility Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Prevent processing delays by exposing backlog growth and throughput bottlenecks in operational workflows.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Workload Processing Flow Visibility Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-core-platform">
+        <p class="eyebrow">QMON-TASK-002</p>
+        <h4>Enable Workload Processing Flow Visibility Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Prevent processing delays by exposing backlog growth and throughput bottlenecks in operational workflows.</li>
+          <li><strong>Scope:</strong> Create the initial workload processing flow visibility capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using workload processing flow visibility with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Trusted Monitoring Asset Enrollment Setup</li><li>Enable Consistent Operational Data Intake Setup</li></ul>
+      </article>
+      <article class="task-card phase-core-platform">
+        <p class="eyebrow">QMON-TASK-003</p>
+        <h4>Provide Workload Processing Flow Visibility Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Prevent processing delays by exposing backlog growth and throughput bottlenecks in operational workflows.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Workload Processing Flow Visibility Setup</li></ul>
+      </article>
+      <article class="task-card phase-core-platform">
+        <p class="eyebrow">SHM-TASK-001</p>
+        <h4>Deliver Application Service Health Visibility Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Show whether business applications and critical integrations are functioning as expected for clinical operations.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Application Service Health Visibility Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-core-platform">
+        <p class="eyebrow">SHM-TASK-002</p>
+        <h4>Enable Application Service Health Visibility Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Show whether business applications and critical integrations are functioning as expected for clinical operations.</li>
+          <li><strong>Scope:</strong> Create the initial application service health visibility capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using application service health visibility with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Trusted Monitoring Asset Enrollment Setup</li><li>Enable Consistent Operational Data Intake Setup</li></ul>
+      </article>
+      <article class="task-card phase-core-platform">
+        <p class="eyebrow">SHM-TASK-003</p>
+        <h4>Provide Application Service Health Visibility Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Show whether business applications and critical integrations are functioning as expected for clinical operations.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Application Service Health Visibility Setup</li></ul>
+      </article>
+    </div>
+  </section>
+  <section id="sprint-3" class="sprint-section phase-operational">
+    <h3>Sprint 3 <span class="phase-chip phase-operational">Operational</span></h3>
+    <p class="sprint-meta"><strong>Goal:</strong> Operational alerting, incident ownership, investigation, and response communication.</p>
+    <div class="sprint-info-row">
+      <div class="sprint-info-card"><strong>Business Value</strong><p>Operations teams receive timely alerts and have structured processes for incident response.</p></div>
+      <div class="sprint-info-card"><strong>Delivered Capability</strong><p>Operations teams receive automated alerts and can track incident ownership and communication.</p></div>
+      <div class="sprint-info-card"><strong>Demonstration Scenario</strong><p>An on-call engineer receives an alert, opens the incident record, and communicates resolution status to the response team.</p></div>
+    </div>
+    <div class="sprint-task-grid">
+      <article class="task-card phase-operational">
+        <p class="eyebrow">ALT-TASK-001</p>
+        <h4>Deliver Timely Critical Condition Identification Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Reduce response time by identifying high-risk operational conditions as soon as they emerge.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Timely Critical Condition Identification Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-operational">
+        <p class="eyebrow">ALT-TASK-002</p>
+        <h4>Enable Timely Critical Condition Identification Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Reduce response time by identifying high-risk operational conditions as soon as they emerge.</li>
+          <li><strong>Scope:</strong> Create the initial timely critical condition identification capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using timely critical condition identification with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Trusted Monitoring Asset Enrollment Setup</li><li>Enable Consistent Operational Data Intake Setup</li></ul>
+      </article>
+      <article class="task-card phase-operational">
+        <p class="eyebrow">ALT-TASK-003</p>
+        <h4>Provide Timely Critical Condition Identification Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Reduce response time by identifying high-risk operational conditions as soon as they emerge.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Timely Critical Condition Identification Setup</li></ul>
+      </article>
+      <article class="task-card phase-operational">
+        <p class="eyebrow">INC-TASK-001</p>
+        <h4>Deliver Structured Incident Ownership Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Improve resolution outcomes by managing incidents with clear ownership, status tracking, and closure discipline.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Structured Incident Ownership Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-operational">
+        <p class="eyebrow">INC-TASK-002</p>
+        <h4>Enable Structured Incident Ownership Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Improve resolution outcomes by managing incidents with clear ownership, status tracking, and closure discipline.</li>
+          <li><strong>Scope:</strong> Create the initial structured incident ownership capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using structured incident ownership with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Trusted Monitoring Asset Enrollment Setup</li><li>Enable Consistent Operational Data Intake Setup</li></ul>
+      </article>
+      <article class="task-card phase-operational">
+        <p class="eyebrow">INC-TASK-003</p>
+        <h4>Provide Structured Incident Ownership Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Improve resolution outcomes by managing incidents with clear ownership, status tracking, and closure discipline.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Structured Incident Ownership Setup</li></ul>
+      </article>
+      <article class="task-card phase-operational">
+        <p class="eyebrow">LOG-TASK-001</p>
+        <h4>Deliver Evidence-Based Operational Investigation Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Speed root-cause analysis by making operational evidence easy to find and review during incidents.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Evidence-Based Operational Investigation Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-operational">
+        <p class="eyebrow">LOG-TASK-002</p>
+        <h4>Enable Evidence-Based Operational Investigation Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Speed root-cause analysis by making operational evidence easy to find and review during incidents.</li>
+          <li><strong>Scope:</strong> Create the initial evidence-based operational investigation capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using evidence-based operational investigation with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Trusted Monitoring Asset Enrollment Setup</li><li>Enable Consistent Operational Data Intake Setup</li></ul>
+      </article>
+      <article class="task-card phase-operational">
+        <p class="eyebrow">LOG-TASK-003</p>
+        <h4>Provide Evidence-Based Operational Investigation Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Speed root-cause analysis by making operational evidence easy to find and review during incidents.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Evidence-Based Operational Investigation Setup</li></ul>
+      </article>
+      <article class="task-card phase-operational">
+        <p class="eyebrow">NTF-TASK-001</p>
+        <h4>Deliver Coordinated Response Communication Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Ensure the right people are informed quickly so critical issues are not delayed by communication gaps.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Coordinated Response Communication Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-operational">
+        <p class="eyebrow">NTF-TASK-002</p>
+        <h4>Enable Coordinated Response Communication Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Ensure the right people are informed quickly so critical issues are not delayed by communication gaps.</li>
+          <li><strong>Scope:</strong> Create the initial coordinated response communication capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using coordinated response communication with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Trusted Monitoring Asset Enrollment Setup</li><li>Enable Consistent Operational Data Intake Setup</li></ul>
+      </article>
+      <article class="task-card phase-operational">
+        <p class="eyebrow">NTF-TASK-003</p>
+        <h4>Provide Coordinated Response Communication Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Ensure the right people are informed quickly so critical issues are not delayed by communication gaps.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Coordinated Response Communication Setup</li></ul>
+      </article>
+    </div>
+  </section>
+  <section id="sprint-4" class="sprint-section phase-automation">
+    <h3>Sprint 4 <span class="phase-chip phase-automation">Automation</span></h3>
+    <p class="sprint-meta"><strong>Goal:</strong> Automation oversight, maintenance risk controls, remediation, and policy-driven decisions.</p>
+    <div class="sprint-info-row">
+      <div class="sprint-info-card"><strong>Business Value</strong><p>Automated risk controls reduce manual effort and enforce consistent response policies.</p></div>
+      <div class="sprint-info-card"><strong>Delivered Capability</strong><p>Operations teams can automate routine tasks and enforce maintenance windows and remediation policies.</p></div>
+      <div class="sprint-info-card"><strong>Demonstration Scenario</strong><p>A change manager schedules a maintenance window and the system automatically suppresses alerts during the change period.</p></div>
+    </div>
+    <div class="sprint-task-grid">
+      <article class="task-card phase-automation">
+        <p class="eyebrow">AUT-TASK-001</p>
+        <h4>Deliver Reliable Operations Automation Oversight Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Scale operational consistency by governing automated workflows and their execution controls.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Reliable Operations Automation Oversight Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-automation">
+        <p class="eyebrow">AUT-TASK-002</p>
+        <h4>Enable Reliable Operations Automation Oversight Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Scale operational consistency by governing automated workflows and their execution controls.</li>
+          <li><strong>Scope:</strong> Create the initial reliable operations automation oversight capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using reliable operations automation oversight with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Trusted Monitoring Asset Enrollment Setup</li><li>Enable Consistent Operational Data Intake Setup</li></ul>
+      </article>
+      <article class="task-card phase-automation">
+        <p class="eyebrow">AUT-TASK-003</p>
+        <h4>Provide Reliable Operations Automation Oversight Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Scale operational consistency by governing automated workflows and their execution controls.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Reliable Operations Automation Oversight Setup</li></ul>
+      </article>
+      <article class="task-card phase-automation">
+        <p class="eyebrow">MWM-TASK-001</p>
+        <h4>Deliver Planned Change Risk Control Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Reduce planned-change risk by coordinating maintenance periods with clear timing and communication controls.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Planned Change Risk Control Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-automation">
+        <p class="eyebrow">MWM-TASK-002</p>
+        <h4>Enable Planned Change Risk Control Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Reduce planned-change risk by coordinating maintenance periods with clear timing and communication controls.</li>
+          <li><strong>Scope:</strong> Create the initial planned change risk control capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using planned change risk control with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Trusted Monitoring Asset Enrollment Setup</li><li>Enable Consistent Operational Data Intake Setup</li></ul>
+      </article>
+      <article class="task-card phase-automation">
+        <p class="eyebrow">MWM-TASK-003</p>
+        <h4>Provide Planned Change Risk Control Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Reduce planned-change risk by coordinating maintenance periods with clear timing and communication controls.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Planned Change Risk Control Setup</li></ul>
+      </article>
+      <article class="task-card phase-automation">
+        <p class="eyebrow">REMG-TASK-001</p>
+        <h4>Deliver Policy-Driven Response Decisions Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Standardize response quality by applying consistent decision policies to recurring operational conditions.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Policy-Driven Response Decisions Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-automation">
+        <p class="eyebrow">REMG-TASK-002</p>
+        <h4>Enable Policy-Driven Response Decisions Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Standardize response quality by applying consistent decision policies to recurring operational conditions.</li>
+          <li><strong>Scope:</strong> Create the initial policy-driven response decisions capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using policy-driven response decisions with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Trusted Monitoring Asset Enrollment Setup</li><li>Enable Consistent Operational Data Intake Setup</li></ul>
+      </article>
+      <article class="task-card phase-automation">
+        <p class="eyebrow">REMG-TASK-003</p>
+        <h4>Provide Policy-Driven Response Decisions Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Standardize response quality by applying consistent decision policies to recurring operational conditions.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Policy-Driven Response Decisions Setup</li></ul>
+      </article>
+      <article class="task-card phase-automation">
+        <p class="eyebrow">RMD-TASK-001</p>
+        <h4>Deliver Safe Automated Issue Correction Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Lower disruption duration by enabling approved corrective actions to run quickly and safely.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Safe Automated Issue Correction Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-automation">
+        <p class="eyebrow">RMD-TASK-002</p>
+        <h4>Enable Safe Automated Issue Correction Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Lower disruption duration by enabling approved corrective actions to run quickly and safely.</li>
+          <li><strong>Scope:</strong> Create the initial safe automated issue correction capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using safe automated issue correction with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Trusted Monitoring Asset Enrollment Setup</li><li>Enable Consistent Operational Data Intake Setup</li></ul>
+      </article>
+      <article class="task-card phase-automation">
+        <p class="eyebrow">RMD-TASK-003</p>
+        <h4>Provide Safe Automated Issue Correction Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Lower disruption duration by enabling approved corrective actions to run quickly and safely.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Safe Automated Issue Correction Setup</li></ul>
+      </article>
+    </div>
+  </section>
+  <section id="sprint-5" class="sprint-section phase-presentation">
+    <h3>Sprint 5 <span class="phase-chip phase-presentation">Presentation</span></h3>
+    <p class="sprint-meta"><strong>Goal:</strong> Business workflow visibility and historical performance reporting.</p>
+    <div class="sprint-info-row">
+      <div class="sprint-info-card"><strong>Business Value</strong><p>Leadership and operations gain reporting and business workflow health insights.</p></div>
+      <div class="sprint-info-card"><strong>Delivered Capability</strong><p>Operations teams and leadership can view business workflow health and generate historical performance reports.</p></div>
+      <div class="sprint-info-card"><strong>Demonstration Scenario</strong><p>A business analyst generates a monthly operational health report and reviews business workflow reliability over the past quarter.</p></div>
+    </div>
+    <div class="sprint-task-grid">
+      <article class="task-card phase-presentation">
+        <p class="eyebrow">BPM-TASK-001</p>
+        <h4>Deliver Business Workflow Reliability Visibility Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Reveal workflow interruptions early so patient-facing and internal business processes stay on track.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Business Workflow Reliability Visibility Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-presentation">
+        <p class="eyebrow">BPM-TASK-002</p>
+        <h4>Enable Business Workflow Reliability Visibility Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Reveal workflow interruptions early so patient-facing and internal business processes stay on track.</li>
+          <li><strong>Scope:</strong> Create the initial business workflow reliability visibility capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using business workflow reliability visibility with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Trusted Monitoring Asset Enrollment Setup</li><li>Enable Consistent Operational Data Intake Setup</li></ul>
+      </article>
+      <article class="task-card phase-presentation">
+        <p class="eyebrow">BPM-TASK-003</p>
+        <h4>Provide Business Workflow Reliability Visibility Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Reveal workflow interruptions early so patient-facing and internal business processes stay on track.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Business Workflow Reliability Visibility Setup</li></ul>
+      </article>
+      <article class="task-card phase-presentation">
+        <p class="eyebrow">RPT-TASK-001</p>
+        <h4>Deliver Historical Performance Insight Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Support planning and service improvement with trend-based reporting on operational performance over time.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Historical Performance Insight Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-presentation">
+        <p class="eyebrow">RPT-TASK-002</p>
+        <h4>Enable Historical Performance Insight Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Support planning and service improvement with trend-based reporting on operational performance over time.</li>
+          <li><strong>Scope:</strong> Create the initial historical performance insight capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using historical performance insight with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Trusted Monitoring Asset Enrollment Setup</li><li>Enable Consistent Operational Data Intake Setup</li></ul>
+      </article>
+      <article class="task-card phase-presentation">
+        <p class="eyebrow">RPT-TASK-003</p>
+        <h4>Provide Historical Performance Insight Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Support planning and service improvement with trend-based reporting on operational performance over time.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Historical Performance Insight Setup</li></ul>
+      </article>
+    </div>
+  </section>
+  <section id="sprint-6" class="sprint-section phase-advanced">
+    <h3>Sprint 6 <span class="phase-chip phase-advanced">Advanced Features</span></h3>
+    <p class="sprint-meta"><strong>Goal:</strong> AI-assisted operations guidance and continuous monitoring currency.</p>
+    <div class="sprint-info-row">
+      <div class="sprint-info-card"><strong>Business Value</strong><p>The platform stays current and benefits from AI-guided recommendations for operations teams.</p></div>
+      <div class="sprint-info-card"><strong>Delivered Capability</strong><p>The monitoring platform auto-updates and provides AI-assisted guidance to operations teams.</p></div>
+      <div class="sprint-info-card"><strong>Demonstration Scenario</strong><p>An operations lead reviews AI-assisted recommendations and confirms the monitoring platform is updated to the latest approved release.</p></div>
+    </div>
+    <div class="sprint-task-grid">
+      <article class="task-card phase-advanced">
+        <p class="eyebrow">AI-TASK-001</p>
+        <h4>Deliver Practical AI-Assisted Operations Guidance Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Increase team efficiency with affordable AI-generated guidance that prioritizes clear, actionable next steps.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Practical AI-Assisted Operations Guidance Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-advanced">
+        <p class="eyebrow">AI-TASK-002</p>
+        <h4>Enable Practical AI-Assisted Operations Guidance Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Increase team efficiency with affordable AI-generated guidance that prioritizes clear, actionable next steps.</li>
+          <li><strong>Scope:</strong> Create the initial practical AI-assisted operations guidance capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using practical AI-assisted operations guidance with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Trusted Monitoring Asset Enrollment Setup</li><li>Enable Consistent Operational Data Intake Setup</li></ul>
+      </article>
+      <article class="task-card phase-advanced">
+        <p class="eyebrow">AI-TASK-003</p>
+        <h4>Provide Practical AI-Assisted Operations Guidance Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Increase team efficiency with affordable AI-generated guidance that prioritizes clear, actionable next steps.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Practical AI-Assisted Operations Guidance Setup</li></ul>
+      </article>
+      <article class="task-card phase-advanced">
+        <p class="eyebrow">AUM-TASK-001</p>
+        <h4>Deliver Continuous Monitoring Solution Currency Governance</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Keep monitoring capabilities current without manual rollout delays that increase operational exposure.</li>
+          <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+          <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Provide Continuous Monitoring Solution Currency Control Policies</li></ul>
+      </article>
+      <article class="task-card phase-advanced">
+        <p class="eyebrow">AUM-TASK-002</p>
+        <h4>Enable Continuous Monitoring Solution Currency Setup</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Keep monitoring capabilities current without manual rollout delays that increase operational exposure.</li>
+          <li><strong>Scope:</strong> Create the initial continuous monitoring solution currency capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+          <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can start using continuous monitoring solution currency with clear accountability and consistent setup standards.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Trusted Monitoring Asset Enrollment Setup</li><li>Enable Consistent Operational Data Intake Setup</li></ul>
+      </article>
+      <article class="task-card phase-advanced">
+        <p class="eyebrow">AUM-TASK-003</p>
+        <h4>Provide Continuous Monitoring Solution Currency Control Policies</h4>
+        <ul class="task-desc">
+          <li><strong>Business Objective:</strong> Keep monitoring capabilities current without manual rollout delays that increase operational exposure.</li>
+          <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+          <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+          <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+        </ul>
+        <p class="dep-label"><strong>Depends on:</strong></p><ul class="dep-list"><li>Enable Continuous Monitoring Solution Currency Setup</li></ul>
+      </article>
+    </div>
+  </section>
   </section>
 
   <section id="prioritized-list">
-    <h2>3. Prioritized Task List</h2>
+    <h2>4. Prioritized Task Table</h2>
     <table>
       <thead>
         <tr>
-          <th>Order</th>
-          <th>Wave</th>
-          <th>Capability</th>
+          <th>#</th>
+          <th>Sprint</th>
           <th>Task ID</th>
-          <th>Task</th>
-          <th>Dependency Notes</th>
+          <th>Task Title</th>
+          <th>Dependencies</th>
           <th>Source</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="layer-row"><td colspan="7">Foundation Layer</td></tr><tr><td>1</td><td>Wave 1</td><td>Agent Management</td><td>AGT-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Foundational prerequisite for all downstream platform capabilities.</td><td><a href="backlog/agent-management-backlog.html">Source backlog</a></td></tr><tr><td>2</td><td>Wave 1</td><td>Agent Management</td><td>AGT-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Foundational prerequisite for all downstream platform capabilities.</td><td><a href="backlog/agent-management-backlog.html">Source backlog</a></td></tr><tr><td>3</td><td>Wave 1</td><td>Agent Management</td><td>AGT-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Foundational prerequisite for all downstream platform capabilities.</td><td><a href="backlog/agent-management-backlog.html">Source backlog</a></td></tr><tr><td>4</td><td>Wave 1</td><td>Collection Management</td><td>COL-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Foundational prerequisite for all downstream platform capabilities.</td><td><a href="backlog/collection-management-backlog.html">Source backlog</a></td></tr><tr><td>5</td><td>Wave 1</td><td>Collection Management</td><td>COL-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Foundational prerequisite for all downstream platform capabilities.</td><td><a href="backlog/collection-management-backlog.html">Source backlog</a></td></tr><tr><td>6</td><td>Wave 1</td><td>Collection Management</td><td>COL-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Foundational prerequisite for all downstream platform capabilities.</td><td><a href="backlog/collection-management-backlog.html">Source backlog</a></td></tr><tr><td>7</td><td>Wave 1</td><td>Security and Access</td><td>ACA-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Foundational prerequisite for all downstream platform capabilities.</td><td><a href="backlog/access-control-and-audit-backlog.html">Source backlog</a></td></tr><tr><td>8</td><td>Wave 1</td><td>Security and Access</td><td>ACA-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Foundational prerequisite for all downstream platform capabilities.</td><td><a href="backlog/access-control-and-audit-backlog.html">Source backlog</a></td></tr><tr><td>9</td><td>Wave 1</td><td>Security and Access</td><td>ACA-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Foundational prerequisite for all downstream platform capabilities.</td><td><a href="backlog/access-control-and-audit-backlog.html">Source backlog</a></td></tr><tr class="layer-row"><td colspan="7">Core Platform Layer</td></tr><tr><td>10</td><td>Wave 2</td><td>Infrastructure Monitoring</td><td>INFRA-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Depends on foundation setup and enables operational response capabilities.</td><td><a href="backlog/monitoring-backlog.html">Source backlog</a></td></tr><tr><td>11</td><td>Wave 2</td><td>Infrastructure Monitoring</td><td>INFRA-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Depends on foundation setup and enables operational response capabilities.</td><td><a href="backlog/monitoring-backlog.html">Source backlog</a></td></tr><tr><td>12</td><td>Wave 2</td><td>Infrastructure Monitoring</td><td>INFRA-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Depends on foundation setup and enables operational response capabilities.</td><td><a href="backlog/monitoring-backlog.html">Source backlog</a></td></tr><tr><td>13</td><td>Wave 2</td><td>Service Health Monitoring</td><td>SHM-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Depends on foundation setup and enables operational response capabilities.</td><td><a href="backlog/service-health-monitoring-backlog.html">Source backlog</a></td></tr><tr><td>14</td><td>Wave 2</td><td>Service Health Monitoring</td><td>SHM-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Depends on foundation setup and enables operational response capabilities.</td><td><a href="backlog/service-health-monitoring-backlog.html">Source backlog</a></td></tr><tr><td>15</td><td>Wave 2</td><td>Service Health Monitoring</td><td>SHM-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Depends on foundation setup and enables operational response capabilities.</td><td><a href="backlog/service-health-monitoring-backlog.html">Source backlog</a></td></tr><tr><td>16</td><td>Wave 2</td><td>Business Process Monitoring</td><td>BPM-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Depends on foundation setup and enables operational response capabilities.</td><td><a href="backlog/business-process-monitoring-backlog.html">Source backlog</a></td></tr><tr><td>17</td><td>Wave 2</td><td>Business Process Monitoring</td><td>BPM-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Depends on foundation setup and enables operational response capabilities.</td><td><a href="backlog/business-process-monitoring-backlog.html">Source backlog</a></td></tr><tr><td>18</td><td>Wave 2</td><td>Business Process Monitoring</td><td>BPM-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Depends on foundation setup and enables operational response capabilities.</td><td><a href="backlog/business-process-monitoring-backlog.html">Source backlog</a></td></tr><tr><td>19</td><td>Wave 2</td><td>Queue Monitoring</td><td>QMON-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Depends on foundation setup and enables operational response capabilities.</td><td><a href="backlog/queue-monitoring-backlog.html">Source backlog</a></td></tr><tr><td>20</td><td>Wave 2</td><td>Queue Monitoring</td><td>QMON-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Depends on foundation setup and enables operational response capabilities.</td><td><a href="backlog/queue-monitoring-backlog.html">Source backlog</a></td></tr><tr><td>21</td><td>Wave 2</td><td>Queue Monitoring</td><td>QMON-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Depends on foundation setup and enables operational response capabilities.</td><td><a href="backlog/queue-monitoring-backlog.html">Source backlog</a></td></tr><tr><td>22</td><td>Wave 2</td><td>Data Exchange Monitoring</td><td>DEM-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Depends on foundation setup and enables operational response capabilities.</td><td><a href="backlog/data-exchange-monitoring-backlog.html">Source backlog</a></td></tr><tr><td>23</td><td>Wave 2</td><td>Data Exchange Monitoring</td><td>DEM-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Depends on foundation setup and enables operational response capabilities.</td><td><a href="backlog/data-exchange-monitoring-backlog.html">Source backlog</a></td></tr><tr><td>24</td><td>Wave 2</td><td>Data Exchange Monitoring</td><td>DEM-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Depends on foundation setup and enables operational response capabilities.</td><td><a href="backlog/data-exchange-monitoring-backlog.html">Source backlog</a></td></tr><tr><td>25</td><td>Wave 2</td><td>Availability Monitoring</td><td>AVM-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Depends on foundation setup and enables operational response capabilities.</td><td><a href="backlog/availability-monitoring-backlog.html">Source backlog</a></td></tr><tr><td>26</td><td>Wave 2</td><td>Availability Monitoring</td><td>AVM-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Depends on foundation setup and enables operational response capabilities.</td><td><a href="backlog/availability-monitoring-backlog.html">Source backlog</a></td></tr><tr><td>27</td><td>Wave 2</td><td>Availability Monitoring</td><td>AVM-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Depends on foundation setup and enables operational response capabilities.</td><td><a href="backlog/availability-monitoring-backlog.html">Source backlog</a></td></tr><tr class="layer-row"><td colspan="7">Operational Layer</td></tr><tr><td>28</td><td>Wave 3</td><td>Alerting</td><td>ALT-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Depends on core signal collection and health monitoring outputs.</td><td><a href="backlog/alerting-backlog.html">Source backlog</a></td></tr><tr><td>29</td><td>Wave 3</td><td>Alerting</td><td>ALT-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Depends on core signal collection and health monitoring outputs.</td><td><a href="backlog/alerting-backlog.html">Source backlog</a></td></tr><tr><td>30</td><td>Wave 3</td><td>Alerting</td><td>ALT-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Depends on core signal collection and health monitoring outputs.</td><td><a href="backlog/alerting-backlog.html">Source backlog</a></td></tr><tr><td>31</td><td>Wave 3</td><td>Notification Management</td><td>NTF-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Depends on core signal collection and health monitoring outputs.</td><td><a href="backlog/notification-management-backlog.html">Source backlog</a></td></tr><tr><td>32</td><td>Wave 3</td><td>Notification Management</td><td>NTF-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Depends on core signal collection and health monitoring outputs.</td><td><a href="backlog/notification-management-backlog.html">Source backlog</a></td></tr><tr><td>33</td><td>Wave 3</td><td>Notification Management</td><td>NTF-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Depends on core signal collection and health monitoring outputs.</td><td><a href="backlog/notification-management-backlog.html">Source backlog</a></td></tr><tr><td>34</td><td>Wave 3</td><td>Incident Management</td><td>INC-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Depends on core signal collection and health monitoring outputs.</td><td><a href="backlog/incident-management-backlog.html">Source backlog</a></td></tr><tr><td>35</td><td>Wave 3</td><td>Incident Management</td><td>INC-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Depends on core signal collection and health monitoring outputs.</td><td><a href="backlog/incident-management-backlog.html">Source backlog</a></td></tr><tr><td>36</td><td>Wave 3</td><td>Incident Management</td><td>INC-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Depends on core signal collection and health monitoring outputs.</td><td><a href="backlog/incident-management-backlog.html">Source backlog</a></td></tr><tr><td>37</td><td>Wave 3</td><td>Logs Management</td><td>LOG-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Depends on core signal collection and health monitoring outputs.</td><td><a href="backlog/logs-management-backlog.html">Source backlog</a></td></tr><tr><td>38</td><td>Wave 3</td><td>Logs Management</td><td>LOG-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Depends on core signal collection and health monitoring outputs.</td><td><a href="backlog/logs-management-backlog.html">Source backlog</a></td></tr><tr><td>39</td><td>Wave 3</td><td>Logs Management</td><td>LOG-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Depends on core signal collection and health monitoring outputs.</td><td><a href="backlog/logs-management-backlog.html">Source backlog</a></td></tr><tr class="layer-row"><td colspan="7">Automation Layer</td></tr><tr><td>40</td><td>Wave 4</td><td>Rule Engine Management</td><td>REMG-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Depends on operational alert and incident context for safe execution.</td><td><a href="backlog/rule-engine-management-backlog.html">Source backlog</a></td></tr><tr><td>41</td><td>Wave 4</td><td>Rule Engine Management</td><td>REMG-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Depends on operational alert and incident context for safe execution.</td><td><a href="backlog/rule-engine-management-backlog.html">Source backlog</a></td></tr><tr><td>42</td><td>Wave 4</td><td>Rule Engine Management</td><td>REMG-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Depends on operational alert and incident context for safe execution.</td><td><a href="backlog/rule-engine-management-backlog.html">Source backlog</a></td></tr><tr><td>43</td><td>Wave 4</td><td>Remediation Management</td><td>RMD-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Depends on operational alert and incident context for safe execution.</td><td><a href="backlog/remediation-management-backlog.html">Source backlog</a></td></tr><tr><td>44</td><td>Wave 4</td><td>Remediation Management</td><td>RMD-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Depends on operational alert and incident context for safe execution.</td><td><a href="backlog/remediation-management-backlog.html">Source backlog</a></td></tr><tr><td>45</td><td>Wave 4</td><td>Remediation Management</td><td>RMD-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Depends on operational alert and incident context for safe execution.</td><td><a href="backlog/remediation-management-backlog.html">Source backlog</a></td></tr><tr><td>46</td><td>Wave 4</td><td>Automation Management</td><td>AUT-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Depends on operational alert and incident context for safe execution.</td><td><a href="backlog/automation-management-backlog.html">Source backlog</a></td></tr><tr><td>47</td><td>Wave 4</td><td>Automation Management</td><td>AUT-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Depends on operational alert and incident context for safe execution.</td><td><a href="backlog/automation-management-backlog.html">Source backlog</a></td></tr><tr><td>48</td><td>Wave 4</td><td>Automation Management</td><td>AUT-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Depends on operational alert and incident context for safe execution.</td><td><a href="backlog/automation-management-backlog.html">Source backlog</a></td></tr><tr class="layer-row"><td colspan="7">Presentation Layer</td></tr><tr><td>49</td><td>Wave 5</td><td>Dashboard</td><td>DSH-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Depends on reliable monitoring, alerting, and automation data pipelines.</td><td><a href="backlog/dashboard-backlog.html">Source backlog</a></td></tr><tr><td>50</td><td>Wave 5</td><td>Dashboard</td><td>DSH-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Depends on reliable monitoring, alerting, and automation data pipelines.</td><td><a href="backlog/dashboard-backlog.html">Source backlog</a></td></tr><tr><td>51</td><td>Wave 5</td><td>Dashboard</td><td>DSH-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Depends on reliable monitoring, alerting, and automation data pipelines.</td><td><a href="backlog/dashboard-backlog.html">Source backlog</a></td></tr><tr><td>52</td><td>Wave 5</td><td>Reporting</td><td>RPT-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Depends on reliable monitoring, alerting, and automation data pipelines.</td><td><a href="backlog/reports-backlog.html">Source backlog</a></td></tr><tr><td>53</td><td>Wave 5</td><td>Reporting</td><td>RPT-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Depends on reliable monitoring, alerting, and automation data pipelines.</td><td><a href="backlog/reports-backlog.html">Source backlog</a></td></tr><tr><td>54</td><td>Wave 5</td><td>Reporting</td><td>RPT-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Depends on reliable monitoring, alerting, and automation data pipelines.</td><td><a href="backlog/reports-backlog.html">Source backlog</a></td></tr><tr class="layer-row"><td colspan="7">Advanced Features</td></tr><tr><td>55</td><td>Wave 6</td><td>AI Management</td><td>AI-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Depends on stable platform operations and governed data foundations.</td><td><a href="backlog/ai-management-backlog.html">Source backlog</a></td></tr><tr><td>56</td><td>Wave 6</td><td>AI Management</td><td>AI-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Depends on stable platform operations and governed data foundations.</td><td><a href="backlog/ai-management-backlog.html">Source backlog</a></td></tr><tr><td>57</td><td>Wave 6</td><td>AI Management</td><td>AI-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Depends on stable platform operations and governed data foundations.</td><td><a href="backlog/ai-management-backlog.html">Source backlog</a></td></tr><tr><td>58</td><td>Wave 6</td><td>Maintenance Window Management</td><td>MWM-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Depends on stable platform operations and governed data foundations.</td><td><a href="backlog/maintenance-window-management-backlog.html">Source backlog</a></td></tr><tr><td>59</td><td>Wave 6</td><td>Maintenance Window Management</td><td>MWM-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Depends on stable platform operations and governed data foundations.</td><td><a href="backlog/maintenance-window-management-backlog.html">Source backlog</a></td></tr><tr><td>60</td><td>Wave 6</td><td>Maintenance Window Management</td><td>MWM-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Depends on stable platform operations and governed data foundations.</td><td><a href="backlog/maintenance-window-management-backlog.html">Source backlog</a></td></tr><tr><td>61</td><td>Wave 6</td><td>Auto-Update Management</td><td>AUM-TASK-001</td><td>Define and publish monitored entities, ownership mapping, and service category tags.</td><td>Depends on stable platform operations and governed data foundations.</td><td><a href="backlog/auto-update-management-backlog.html">Source backlog</a></td></tr><tr><td>62</td><td>Wave 6</td><td>Auto-Update Management</td><td>AUM-TASK-002</td><td>Configure thresholds, suppression, and severity/escalation workflows.</td><td>Depends on stable platform operations and governed data foundations.</td><td><a href="backlog/auto-update-management-backlog.html">Source backlog</a></td></tr><tr><td>63</td><td>Wave 6</td><td>Auto-Update Management</td><td>AUM-TASK-003</td><td>Implement audit, retention, and runbook-link process for operations.</td><td>Depends on stable platform operations and governed data foundations.</td><td><a href="backlog/auto-update-management-backlog.html">Source backlog</a></td></tr>
+<tr class="layer-row"><td colspan="6">Sprint 1 – Foundation</td></tr>
+<tr><td>1</td><td>Sprint 1</td><td>ACA-TASK-001</td><td>Deliver Secure and Accountable Monitoring Access Governance</td><td>Provide Secure and Accountable Monitoring Access Control Policies</td><td><a href="backlog/access-control-and-audit-backlog.html">Source</a></td></tr>
+<tr><td>2</td><td>Sprint 1</td><td>ACA-TASK-002</td><td>Enable Secure and Accountable Monitoring Access Setup</td><td>No upstream dependency</td><td><a href="backlog/access-control-and-audit-backlog.html">Source</a></td></tr>
+<tr><td>3</td><td>Sprint 1</td><td>ACA-TASK-003</td><td>Provide Secure and Accountable Monitoring Access Control Policies</td><td>Enable Secure and Accountable Monitoring Access Setup</td><td><a href="backlog/access-control-and-audit-backlog.html">Source</a></td></tr>
+<tr><td>4</td><td>Sprint 1</td><td>AGT-TASK-001</td><td>Deliver Trusted Monitoring Asset Enrollment Governance</td><td>Provide Trusted Monitoring Asset Enrollment Control Policies</td><td><a href="backlog/agent-management-backlog.html">Source</a></td></tr>
+<tr><td>5</td><td>Sprint 1</td><td>AGT-TASK-002</td><td>Enable Trusted Monitoring Asset Enrollment Setup</td><td>No upstream dependency</td><td><a href="backlog/agent-management-backlog.html">Source</a></td></tr>
+<tr><td>6</td><td>Sprint 1</td><td>AGT-TASK-003</td><td>Provide Trusted Monitoring Asset Enrollment Control Policies</td><td>Enable Trusted Monitoring Asset Enrollment Setup</td><td><a href="backlog/agent-management-backlog.html">Source</a></td></tr>
+<tr><td>7</td><td>Sprint 1</td><td>COL-TASK-001</td><td>Deliver Consistent Operational Data Intake Governance</td><td>Provide Consistent Operational Data Intake Control Policies</td><td><a href="backlog/collection-management-backlog.html">Source</a></td></tr>
+<tr><td>8</td><td>Sprint 1</td><td>COL-TASK-002</td><td>Enable Consistent Operational Data Intake Setup</td><td>No upstream dependency</td><td><a href="backlog/collection-management-backlog.html">Source</a></td></tr>
+<tr><td>9</td><td>Sprint 1</td><td>COL-TASK-003</td><td>Provide Consistent Operational Data Intake Control Policies</td><td>Enable Consistent Operational Data Intake Setup</td><td><a href="backlog/collection-management-backlog.html">Source</a></td></tr>
+<tr><td>10</td><td>Sprint 1</td><td>DSH-TASK-001</td><td>Deliver Unified Operations Situation Awareness Governance</td><td>Provide Unified Operations Situation Awareness Control Policies</td><td><a href="backlog/dashboard-backlog.html">Source</a></td></tr>
+<tr><td>11</td><td>Sprint 1</td><td>DSH-TASK-002</td><td>Enable Unified Operations Situation Awareness Setup</td><td>Enable Trusted Monitoring Asset Enrollment Setup | Enable Consistent Operational</td><td><a href="backlog/dashboard-backlog.html">Source</a></td></tr>
+<tr><td>12</td><td>Sprint 1</td><td>DSH-TASK-003</td><td>Provide Unified Operations Situation Awareness Control Policies</td><td>Enable Unified Operations Situation Awareness Setup</td><td><a href="backlog/dashboard-backlog.html">Source</a></td></tr>
+<tr><td>13</td><td>Sprint 1</td><td>INFRA-TASK-001</td><td>Deliver Infrastructure Health Visibility Governance</td><td>Provide Infrastructure Health Visibility Control Policies</td><td><a href="backlog/monitoring-backlog.html">Source</a></td></tr>
+<tr><td>14</td><td>Sprint 1</td><td>INFRA-TASK-002</td><td>Enable Infrastructure Health Visibility Setup</td><td>Enable Trusted Monitoring Asset Enrollment Setup | Enable Consistent Operational</td><td><a href="backlog/monitoring-backlog.html">Source</a></td></tr>
+<tr><td>15</td><td>Sprint 1</td><td>INFRA-TASK-003</td><td>Provide Infrastructure Health Visibility Control Policies</td><td>Enable Infrastructure Health Visibility Setup</td><td><a href="backlog/monitoring-backlog.html">Source</a></td></tr>
+<tr class="layer-row"><td colspan="6">Sprint 2 – Core Platform</td></tr>
+<tr><td>16</td><td>Sprint 2</td><td>AVM-TASK-001</td><td>Deliver Operational Availability Transparency Governance</td><td>Provide Operational Availability Transparency Control Policies</td><td><a href="backlog/availability-monitoring-backlog.html">Source</a></td></tr>
+<tr><td>17</td><td>Sprint 2</td><td>AVM-TASK-002</td><td>Enable Operational Availability Transparency Setup</td><td>Enable Trusted Monitoring Asset Enrollment Setup | Enable Consistent Operational</td><td><a href="backlog/availability-monitoring-backlog.html">Source</a></td></tr>
+<tr><td>18</td><td>Sprint 2</td><td>AVM-TASK-003</td><td>Provide Operational Availability Transparency Control Policies</td><td>Enable Operational Availability Transparency Setup</td><td><a href="backlog/availability-monitoring-backlog.html">Source</a></td></tr>
+<tr><td>19</td><td>Sprint 2</td><td>DEM-TASK-001</td><td>Deliver Clinical Data Exchange Reliability Visibility Governance</td><td>Provide Clinical Data Exchange Reliability Visibility Control Policies</td><td><a href="backlog/data-exchange-monitoring-backlog.html">Source</a></td></tr>
+<tr><td>20</td><td>Sprint 2</td><td>DEM-TASK-002</td><td>Enable Clinical Data Exchange Reliability Visibility Setup</td><td>Enable Trusted Monitoring Asset Enrollment Setup | Enable Consistent Operational</td><td><a href="backlog/data-exchange-monitoring-backlog.html">Source</a></td></tr>
+<tr><td>21</td><td>Sprint 2</td><td>DEM-TASK-003</td><td>Provide Clinical Data Exchange Reliability Visibility Control Policies</td><td>Enable Clinical Data Exchange Reliability Visibility Setup</td><td><a href="backlog/data-exchange-monitoring-backlog.html">Source</a></td></tr>
+<tr><td>22</td><td>Sprint 2</td><td>QMON-TASK-001</td><td>Deliver Workload Processing Flow Visibility Governance</td><td>Provide Workload Processing Flow Visibility Control Policies</td><td><a href="backlog/queue-monitoring-backlog.html">Source</a></td></tr>
+<tr><td>23</td><td>Sprint 2</td><td>QMON-TASK-002</td><td>Enable Workload Processing Flow Visibility Setup</td><td>Enable Trusted Monitoring Asset Enrollment Setup | Enable Consistent Operational</td><td><a href="backlog/queue-monitoring-backlog.html">Source</a></td></tr>
+<tr><td>24</td><td>Sprint 2</td><td>QMON-TASK-003</td><td>Provide Workload Processing Flow Visibility Control Policies</td><td>Enable Workload Processing Flow Visibility Setup</td><td><a href="backlog/queue-monitoring-backlog.html">Source</a></td></tr>
+<tr><td>25</td><td>Sprint 2</td><td>SHM-TASK-001</td><td>Deliver Application Service Health Visibility Governance</td><td>Provide Application Service Health Visibility Control Policies</td><td><a href="backlog/service-health-monitoring-backlog.html">Source</a></td></tr>
+<tr><td>26</td><td>Sprint 2</td><td>SHM-TASK-002</td><td>Enable Application Service Health Visibility Setup</td><td>Enable Trusted Monitoring Asset Enrollment Setup | Enable Consistent Operational</td><td><a href="backlog/service-health-monitoring-backlog.html">Source</a></td></tr>
+<tr><td>27</td><td>Sprint 2</td><td>SHM-TASK-003</td><td>Provide Application Service Health Visibility Control Policies</td><td>Enable Application Service Health Visibility Setup</td><td><a href="backlog/service-health-monitoring-backlog.html">Source</a></td></tr>
+<tr class="layer-row"><td colspan="6">Sprint 3 – Operational</td></tr>
+<tr><td>28</td><td>Sprint 3</td><td>ALT-TASK-001</td><td>Deliver Timely Critical Condition Identification Governance</td><td>Provide Timely Critical Condition Identification Control Policies</td><td><a href="backlog/alerting-backlog.html">Source</a></td></tr>
+<tr><td>29</td><td>Sprint 3</td><td>ALT-TASK-002</td><td>Enable Timely Critical Condition Identification Setup</td><td>Enable Trusted Monitoring Asset Enrollment Setup | Enable Consistent Operational</td><td><a href="backlog/alerting-backlog.html">Source</a></td></tr>
+<tr><td>30</td><td>Sprint 3</td><td>ALT-TASK-003</td><td>Provide Timely Critical Condition Identification Control Policies</td><td>Enable Timely Critical Condition Identification Setup</td><td><a href="backlog/alerting-backlog.html">Source</a></td></tr>
+<tr><td>31</td><td>Sprint 3</td><td>INC-TASK-001</td><td>Deliver Structured Incident Ownership Governance</td><td>Provide Structured Incident Ownership Control Policies</td><td><a href="backlog/incident-management-backlog.html">Source</a></td></tr>
+<tr><td>32</td><td>Sprint 3</td><td>INC-TASK-002</td><td>Enable Structured Incident Ownership Setup</td><td>Enable Trusted Monitoring Asset Enrollment Setup | Enable Consistent Operational</td><td><a href="backlog/incident-management-backlog.html">Source</a></td></tr>
+<tr><td>33</td><td>Sprint 3</td><td>INC-TASK-003</td><td>Provide Structured Incident Ownership Control Policies</td><td>Enable Structured Incident Ownership Setup</td><td><a href="backlog/incident-management-backlog.html">Source</a></td></tr>
+<tr><td>34</td><td>Sprint 3</td><td>LOG-TASK-001</td><td>Deliver Evidence-Based Operational Investigation Governance</td><td>Provide Evidence-Based Operational Investigation Control Policies</td><td><a href="backlog/logs-management-backlog.html">Source</a></td></tr>
+<tr><td>35</td><td>Sprint 3</td><td>LOG-TASK-002</td><td>Enable Evidence-Based Operational Investigation Setup</td><td>Enable Trusted Monitoring Asset Enrollment Setup | Enable Consistent Operational</td><td><a href="backlog/logs-management-backlog.html">Source</a></td></tr>
+<tr><td>36</td><td>Sprint 3</td><td>LOG-TASK-003</td><td>Provide Evidence-Based Operational Investigation Control Policies</td><td>Enable Evidence-Based Operational Investigation Setup</td><td><a href="backlog/logs-management-backlog.html">Source</a></td></tr>
+<tr><td>37</td><td>Sprint 3</td><td>NTF-TASK-001</td><td>Deliver Coordinated Response Communication Governance</td><td>Provide Coordinated Response Communication Control Policies</td><td><a href="backlog/notification-management-backlog.html">Source</a></td></tr>
+<tr><td>38</td><td>Sprint 3</td><td>NTF-TASK-002</td><td>Enable Coordinated Response Communication Setup</td><td>Enable Trusted Monitoring Asset Enrollment Setup | Enable Consistent Operational</td><td><a href="backlog/notification-management-backlog.html">Source</a></td></tr>
+<tr><td>39</td><td>Sprint 3</td><td>NTF-TASK-003</td><td>Provide Coordinated Response Communication Control Policies</td><td>Enable Coordinated Response Communication Setup</td><td><a href="backlog/notification-management-backlog.html">Source</a></td></tr>
+<tr class="layer-row"><td colspan="6">Sprint 4 – Automation</td></tr>
+<tr><td>40</td><td>Sprint 4</td><td>AUT-TASK-001</td><td>Deliver Reliable Operations Automation Oversight Governance</td><td>Provide Reliable Operations Automation Oversight Control Policies</td><td><a href="backlog/automation-management-backlog.html">Source</a></td></tr>
+<tr><td>41</td><td>Sprint 4</td><td>AUT-TASK-002</td><td>Enable Reliable Operations Automation Oversight Setup</td><td>Enable Trusted Monitoring Asset Enrollment Setup | Enable Consistent Operational</td><td><a href="backlog/automation-management-backlog.html">Source</a></td></tr>
+<tr><td>42</td><td>Sprint 4</td><td>AUT-TASK-003</td><td>Provide Reliable Operations Automation Oversight Control Policies</td><td>Enable Reliable Operations Automation Oversight Setup</td><td><a href="backlog/automation-management-backlog.html">Source</a></td></tr>
+<tr><td>43</td><td>Sprint 4</td><td>MWM-TASK-001</td><td>Deliver Planned Change Risk Control Governance</td><td>Provide Planned Change Risk Control Control Policies</td><td><a href="backlog/maintenance-window-management-backlog.html">Source</a></td></tr>
+<tr><td>44</td><td>Sprint 4</td><td>MWM-TASK-002</td><td>Enable Planned Change Risk Control Setup</td><td>Enable Trusted Monitoring Asset Enrollment Setup | Enable Consistent Operational</td><td><a href="backlog/maintenance-window-management-backlog.html">Source</a></td></tr>
+<tr><td>45</td><td>Sprint 4</td><td>MWM-TASK-003</td><td>Provide Planned Change Risk Control Control Policies</td><td>Enable Planned Change Risk Control Setup</td><td><a href="backlog/maintenance-window-management-backlog.html">Source</a></td></tr>
+<tr><td>46</td><td>Sprint 4</td><td>REMG-TASK-001</td><td>Deliver Policy-Driven Response Decisions Governance</td><td>Provide Policy-Driven Response Decisions Control Policies</td><td><a href="backlog/rule-engine-management-backlog.html">Source</a></td></tr>
+<tr><td>47</td><td>Sprint 4</td><td>REMG-TASK-002</td><td>Enable Policy-Driven Response Decisions Setup</td><td>Enable Trusted Monitoring Asset Enrollment Setup | Enable Consistent Operational</td><td><a href="backlog/rule-engine-management-backlog.html">Source</a></td></tr>
+<tr><td>48</td><td>Sprint 4</td><td>REMG-TASK-003</td><td>Provide Policy-Driven Response Decisions Control Policies</td><td>Enable Policy-Driven Response Decisions Setup</td><td><a href="backlog/rule-engine-management-backlog.html">Source</a></td></tr>
+<tr><td>49</td><td>Sprint 4</td><td>RMD-TASK-001</td><td>Deliver Safe Automated Issue Correction Governance</td><td>Provide Safe Automated Issue Correction Control Policies</td><td><a href="backlog/remediation-management-backlog.html">Source</a></td></tr>
+<tr><td>50</td><td>Sprint 4</td><td>RMD-TASK-002</td><td>Enable Safe Automated Issue Correction Setup</td><td>Enable Trusted Monitoring Asset Enrollment Setup | Enable Consistent Operational</td><td><a href="backlog/remediation-management-backlog.html">Source</a></td></tr>
+<tr><td>51</td><td>Sprint 4</td><td>RMD-TASK-003</td><td>Provide Safe Automated Issue Correction Control Policies</td><td>Enable Safe Automated Issue Correction Setup</td><td><a href="backlog/remediation-management-backlog.html">Source</a></td></tr>
+<tr class="layer-row"><td colspan="6">Sprint 5 – Presentation</td></tr>
+<tr><td>52</td><td>Sprint 5</td><td>BPM-TASK-001</td><td>Deliver Business Workflow Reliability Visibility Governance</td><td>Provide Business Workflow Reliability Visibility Control Policies</td><td><a href="backlog/business-process-monitoring-backlog.html">Source</a></td></tr>
+<tr><td>53</td><td>Sprint 5</td><td>BPM-TASK-002</td><td>Enable Business Workflow Reliability Visibility Setup</td><td>Enable Trusted Monitoring Asset Enrollment Setup | Enable Consistent Operational</td><td><a href="backlog/business-process-monitoring-backlog.html">Source</a></td></tr>
+<tr><td>54</td><td>Sprint 5</td><td>BPM-TASK-003</td><td>Provide Business Workflow Reliability Visibility Control Policies</td><td>Enable Business Workflow Reliability Visibility Setup</td><td><a href="backlog/business-process-monitoring-backlog.html">Source</a></td></tr>
+<tr><td>55</td><td>Sprint 5</td><td>RPT-TASK-001</td><td>Deliver Historical Performance Insight Governance</td><td>Provide Historical Performance Insight Control Policies</td><td><a href="backlog/reports-backlog.html">Source</a></td></tr>
+<tr><td>56</td><td>Sprint 5</td><td>RPT-TASK-002</td><td>Enable Historical Performance Insight Setup</td><td>Enable Trusted Monitoring Asset Enrollment Setup | Enable Consistent Operational</td><td><a href="backlog/reports-backlog.html">Source</a></td></tr>
+<tr><td>57</td><td>Sprint 5</td><td>RPT-TASK-003</td><td>Provide Historical Performance Insight Control Policies</td><td>Enable Historical Performance Insight Setup</td><td><a href="backlog/reports-backlog.html">Source</a></td></tr>
+<tr class="layer-row"><td colspan="6">Sprint 6 – Advanced Features</td></tr>
+<tr><td>58</td><td>Sprint 6</td><td>AI-TASK-001</td><td>Deliver Practical AI-Assisted Operations Guidance Governance</td><td>Provide Practical AI-Assisted Operations Guidance Control Policies</td><td><a href="backlog/ai-management-backlog.html">Source</a></td></tr>
+<tr><td>59</td><td>Sprint 6</td><td>AI-TASK-002</td><td>Enable Practical AI-Assisted Operations Guidance Setup</td><td>Enable Trusted Monitoring Asset Enrollment Setup | Enable Consistent Operational</td><td><a href="backlog/ai-management-backlog.html">Source</a></td></tr>
+<tr><td>60</td><td>Sprint 6</td><td>AI-TASK-003</td><td>Provide Practical AI-Assisted Operations Guidance Control Policies</td><td>Enable Practical AI-Assisted Operations Guidance Setup</td><td><a href="backlog/ai-management-backlog.html">Source</a></td></tr>
+<tr><td>61</td><td>Sprint 6</td><td>AUM-TASK-001</td><td>Deliver Continuous Monitoring Solution Currency Governance</td><td>Provide Continuous Monitoring Solution Currency Control Policies</td><td><a href="backlog/auto-update-management-backlog.html">Source</a></td></tr>
+<tr><td>62</td><td>Sprint 6</td><td>AUM-TASK-002</td><td>Enable Continuous Monitoring Solution Currency Setup</td><td>Enable Trusted Monitoring Asset Enrollment Setup | Enable Consistent Operational</td><td><a href="backlog/auto-update-management-backlog.html">Source</a></td></tr>
+<tr><td>63</td><td>Sprint 6</td><td>AUM-TASK-003</td><td>Provide Continuous Monitoring Solution Currency Control Policies</td><td>Enable Continuous Monitoring Solution Currency Setup</td><td><a href="backlog/auto-update-management-backlog.html">Source</a></td></tr>
       </tbody>
     </table>
   </section>
 
+  <section id="dependencies">
+    <h2>5. Dependencies Between Tasks</h2>
+    <ul class="related-list">
+      <li><strong>Deliver Secure and Accountable Monitoring Access Governance:</strong><ul><li><em>Provide Secure and Accountable Monitoring Access Control Policies</em></li></ul></li><li><strong>Enable Secure and Accountable Monitoring Access Setup:</strong><ul><li>No upstream dependency</li></ul></li><li><strong>Provide Secure and Accountable Monitoring Access Control Policies:</strong><ul><li><em>Enable Secure and Accountable Monitoring Access Setup</em></li></ul></li><li><strong>Deliver Trusted Monitoring Asset Enrollment Governance:</strong><ul><li><em>Provide Trusted Monitoring Asset Enrollment Control Policies</em></li></ul></li><li><strong>Enable Trusted Monitoring Asset Enrollment Setup:</strong><ul><li>No upstream dependency</li></ul></li><li><strong>Provide Trusted Monitoring Asset Enrollment Control Policies:</strong><ul><li><em>Enable Trusted Monitoring Asset Enrollment Setup</em></li></ul></li><li><strong>Deliver Consistent Operational Data Intake Governance:</strong><ul><li><em>Provide Consistent Operational Data Intake Control Policies</em></li></ul></li><li><strong>Enable Consistent Operational Data Intake Setup:</strong><ul><li>No upstream dependency</li></ul></li><li><strong>Provide Consistent Operational Data Intake Control Policies:</strong><ul><li><em>Enable Consistent Operational Data Intake Setup</em></li></ul></li><li><strong>Deliver Unified Operations Situation Awareness Governance:</strong><ul><li><em>Provide Unified Operations Situation Awareness Control Policies</em></li></ul></li><li><strong>Enable Unified Operations Situation Awareness Setup:</strong><ul><li><em>Enable Trusted Monitoring Asset Enrollment Setup</em></li><li><em>Enable Consistent Operational Data Intake Setup</em></li></ul></li><li><strong>Provide Unified Operations Situation Awareness Control Policies:</strong><ul><li><em>Enable Unified Operations Situation Awareness Setup</em></li></ul></li><li><strong>Deliver Infrastructure Health Visibility Governance:</strong><ul><li><em>Provide Infrastructure Health Visibility Control Policies</em></li></ul></li><li><strong>Enable Infrastructure Health Visibility Setup:</strong><ul><li><em>Enable Trusted Monitoring Asset Enrollment Setup</em></li><li><em>Enable Consistent Operational Data Intake Setup</em></li></ul></li><li><strong>Provide Infrastructure Health Visibility Control Policies:</strong><ul><li><em>Enable Infrastructure Health Visibility Setup</em></li></ul></li><li><strong>Deliver Operational Availability Transparency Governance:</strong><ul><li><em>Provide Operational Availability Transparency Control Policies</em></li></ul></li><li><strong>Enable Operational Availability Transparency Setup:</strong><ul><li><em>Enable Trusted Monitoring Asset Enrollment Setup</em></li><li><em>Enable Consistent Operational Data Intake Setup</em></li></ul></li><li><strong>Provide Operational Availability Transparency Control Policies:</strong><ul><li><em>Enable Operational Availability Transparency Setup</em></li></ul></li><li><strong>Deliver Clinical Data Exchange Reliability Visibility Governance:</strong><ul><li><em>Provide Clinical Data Exchange Reliability Visibility Control Policies</em></li></ul></li><li><strong>Enable Clinical Data Exchange Reliability Visibility Setup:</strong><ul><li><em>Enable Trusted Monitoring Asset Enrollment Setup</em></li><li><em>Enable Consistent Operational Data Intake Setup</em></li></ul></li><li><strong>Provide Clinical Data Exchange Reliability Visibility Control Policies:</strong><ul><li><em>Enable Clinical Data Exchange Reliability Visibility Setup</em></li></ul></li><li><strong>Deliver Workload Processing Flow Visibility Governance:</strong><ul><li><em>Provide Workload Processing Flow Visibility Control Policies</em></li></ul></li><li><strong>Enable Workload Processing Flow Visibility Setup:</strong><ul><li><em>Enable Trusted Monitoring Asset Enrollment Setup</em></li><li><em>Enable Consistent Operational Data Intake Setup</em></li></ul></li><li><strong>Provide Workload Processing Flow Visibility Control Policies:</strong><ul><li><em>Enable Workload Processing Flow Visibility Setup</em></li></ul></li><li><strong>Deliver Application Service Health Visibility Governance:</strong><ul><li><em>Provide Application Service Health Visibility Control Policies</em></li></ul></li><li><strong>Enable Application Service Health Visibility Setup:</strong><ul><li><em>Enable Trusted Monitoring Asset Enrollment Setup</em></li><li><em>Enable Consistent Operational Data Intake Setup</em></li></ul></li><li><strong>Provide Application Service Health Visibility Control Policies:</strong><ul><li><em>Enable Application Service Health Visibility Setup</em></li></ul></li><li><strong>Deliver Timely Critical Condition Identification Governance:</strong><ul><li><em>Provide Timely Critical Condition Identification Control Policies</em></li></ul></li><li><strong>Enable Timely Critical Condition Identification Setup:</strong><ul><li><em>Enable Trusted Monitoring Asset Enrollment Setup</em></li><li><em>Enable Consistent Operational Data Intake Setup</em></li></ul></li><li><strong>Provide Timely Critical Condition Identification Control Policies:</strong><ul><li><em>Enable Timely Critical Condition Identification Setup</em></li></ul></li><li><strong>Deliver Structured Incident Ownership Governance:</strong><ul><li><em>Provide Structured Incident Ownership Control Policies</em></li></ul></li><li><strong>Enable Structured Incident Ownership Setup:</strong><ul><li><em>Enable Trusted Monitoring Asset Enrollment Setup</em></li><li><em>Enable Consistent Operational Data Intake Setup</em></li></ul></li><li><strong>Provide Structured Incident Ownership Control Policies:</strong><ul><li><em>Enable Structured Incident Ownership Setup</em></li></ul></li><li><strong>Deliver Evidence-Based Operational Investigation Governance:</strong><ul><li><em>Provide Evidence-Based Operational Investigation Control Policies</em></li></ul></li><li><strong>Enable Evidence-Based Operational Investigation Setup:</strong><ul><li><em>Enable Trusted Monitoring Asset Enrollment Setup</em></li><li><em>Enable Consistent Operational Data Intake Setup</em></li></ul></li><li><strong>Provide Evidence-Based Operational Investigation Control Policies:</strong><ul><li><em>Enable Evidence-Based Operational Investigation Setup</em></li></ul></li><li><strong>Deliver Coordinated Response Communication Governance:</strong><ul><li><em>Provide Coordinated Response Communication Control Policies</em></li></ul></li><li><strong>Enable Coordinated Response Communication Setup:</strong><ul><li><em>Enable Trusted Monitoring Asset Enrollment Setup</em></li><li><em>Enable Consistent Operational Data Intake Setup</em></li></ul></li><li><strong>Provide Coordinated Response Communication Control Policies:</strong><ul><li><em>Enable Coordinated Response Communication Setup</em></li></ul></li><li><strong>Deliver Reliable Operations Automation Oversight Governance:</strong><ul><li><em>Provide Reliable Operations Automation Oversight Control Policies</em></li></ul></li><li><strong>Enable Reliable Operations Automation Oversight Setup:</strong><ul><li><em>Enable Trusted Monitoring Asset Enrollment Setup</em></li><li><em>Enable Consistent Operational Data Intake Setup</em></li></ul></li><li><strong>Provide Reliable Operations Automation Oversight Control Policies:</strong><ul><li><em>Enable Reliable Operations Automation Oversight Setup</em></li></ul></li><li><strong>Deliver Planned Change Risk Control Governance:</strong><ul><li><em>Provide Planned Change Risk Control Control Policies</em></li></ul></li><li><strong>Enable Planned Change Risk Control Setup:</strong><ul><li><em>Enable Trusted Monitoring Asset Enrollment Setup</em></li><li><em>Enable Consistent Operational Data Intake Setup</em></li></ul></li><li><strong>Provide Planned Change Risk Control Control Policies:</strong><ul><li><em>Enable Planned Change Risk Control Setup</em></li></ul></li><li><strong>Deliver Policy-Driven Response Decisions Governance:</strong><ul><li><em>Provide Policy-Driven Response Decisions Control Policies</em></li></ul></li><li><strong>Enable Policy-Driven Response Decisions Setup:</strong><ul><li><em>Enable Trusted Monitoring Asset Enrollment Setup</em></li><li><em>Enable Consistent Operational Data Intake Setup</em></li></ul></li><li><strong>Provide Policy-Driven Response Decisions Control Policies:</strong><ul><li><em>Enable Policy-Driven Response Decisions Setup</em></li></ul></li><li><strong>Deliver Safe Automated Issue Correction Governance:</strong><ul><li><em>Provide Safe Automated Issue Correction Control Policies</em></li></ul></li><li><strong>Enable Safe Automated Issue Correction Setup:</strong><ul><li><em>Enable Trusted Monitoring Asset Enrollment Setup</em></li><li><em>Enable Consistent Operational Data Intake Setup</em></li></ul></li><li><strong>Provide Safe Automated Issue Correction Control Policies:</strong><ul><li><em>Enable Safe Automated Issue Correction Setup</em></li></ul></li><li><strong>Deliver Business Workflow Reliability Visibility Governance:</strong><ul><li><em>Provide Business Workflow Reliability Visibility Control Policies</em></li></ul></li><li><strong>Enable Business Workflow Reliability Visibility Setup:</strong><ul><li><em>Enable Trusted Monitoring Asset Enrollment Setup</em></li><li><em>Enable Consistent Operational Data Intake Setup</em></li></ul></li><li><strong>Provide Business Workflow Reliability Visibility Control Policies:</strong><ul><li><em>Enable Business Workflow Reliability Visibility Setup</em></li></ul></li><li><strong>Deliver Historical Performance Insight Governance:</strong><ul><li><em>Provide Historical Performance Insight Control Policies</em></li></ul></li><li><strong>Enable Historical Performance Insight Setup:</strong><ul><li><em>Enable Trusted Monitoring Asset Enrollment Setup</em></li><li><em>Enable Consistent Operational Data Intake Setup</em></li></ul></li><li><strong>Provide Historical Performance Insight Control Policies:</strong><ul><li><em>Enable Historical Performance Insight Setup</em></li></ul></li><li><strong>Deliver Practical AI-Assisted Operations Guidance Governance:</strong><ul><li><em>Provide Practical AI-Assisted Operations Guidance Control Policies</em></li></ul></li><li><strong>Enable Practical AI-Assisted Operations Guidance Setup:</strong><ul><li><em>Enable Trusted Monitoring Asset Enrollment Setup</em></li><li><em>Enable Consistent Operational Data Intake Setup</em></li></ul></li><li><strong>Provide Practical AI-Assisted Operations Guidance Control Policies:</strong><ul><li><em>Enable Practical AI-Assisted Operations Guidance Setup</em></li></ul></li><li><strong>Deliver Continuous Monitoring Solution Currency Governance:</strong><ul><li><em>Provide Continuous Monitoring Solution Currency Control Policies</em></li></ul></li><li><strong>Enable Continuous Monitoring Solution Currency Setup:</strong><ul><li><em>Enable Trusted Monitoring Asset Enrollment Setup</em></li><li><em>Enable Consistent Operational Data Intake Setup</em></li></ul></li><li><strong>Provide Continuous Monitoring Solution Currency Control Policies:</strong><ul><li><em>Enable Continuous Monitoring Solution Currency Setup</em></li></ul></li>
+    </ul>
+  </section>
+
   <section id="traceability">
-    <h2>4. Traceability and Export</h2>
+    <h2>6. Traceability and Export</h2>
     <p>Download the Azure DevOps-ready CSV export: <a href="backlog-prioritized.csv" download>backlog-prioritized.csv</a>.</p>
     <p>Download the MVP business-outcomes backlog export: <a href="backlog-mvp-refactored.csv" download>backlog-mvp-refactored.csv</a>.</p>
     <p>Review sprint validation details: <a href="sprints.html">Sprint Validation Details</a>.</p>
