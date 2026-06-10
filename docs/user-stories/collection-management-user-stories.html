@@ -8,16 +8,19 @@
 </head>
 <body>
 <div class="layout">
-
 <nav class="sidebar" aria-label="Portal Navigation">
-  <h2>MedWatch Docs</h2>
-  <ul>
+  <div class="sidebar-brand">
+    <h2>MedWatch Docs</h2>
+    <p>MVP delivery portal</p>
+  </div>
+  <ul class="nav-primary">
     <li><a href="../index.html">Home</a></li>
+    <li><a href="../sprints.html">Sprint Planning</a></li>
     <li><a href="../traceability.html">Traceability Matrix</a></li>
     <li><a href="../architecture/operations-monitoring-architecture.html">Architecture</a></li>
   </ul>
   <h3>Catalogs</h3>
-  <ul>
+  <ul class="nav-secondary">
     <li><a href="../index.html#epic-catalog">Epics</a></li>
     <li><a href="../index.html#requirements-catalog">Requirements</a></li>
     <li><a href="../index.html#stories-catalog">User Stories</a></li>
@@ -25,55 +28,45 @@
     <li><a href="../implementation-backlog.html">Implementation Backlog</a></li>
   </ul>
 </nav>
-
 <main class="content">
-  <header>
+  <header class="page-header">
     <p class="breadcrumbs"><a href="../index.html">Home</a> / <a href="../index.html#stories-catalog">User Stories</a> / Collection Management</p>
     <h1>Collection Management User Stories</h1>
+    <p class="lead">Enhanced user stories for collection management tied directly to requirements, backlog tasks, and sprint delivery.</p>
   </header>
   <section class="toc" aria-labelledby="toc-heading">
-    <h2 id="toc-heading">Table of Contents</h2>
-    <ol>
-      <li><a href="#sec-1">1. Executive Summary</a></li><li><a href="#sec-2">2. Personas</a></li><li><a href="#sec-3">3. User Stories</a></li><li><a href="#sec-4">4. Traceability Links</a></li><li><a href="#sec-5">5. Revision History</a></li>
-    </ol>
-  </section>
-  
-  <section id="sec-1"><h2>1. Executive Summary</h2><p>This document defines user personas and stories for collection management to guide MVP delivery.</p></section>
-  <section id="sec-2"><h2>2. Personas</h2><ul><li>Operations Analyst</li><li>Incident Manager</li><li>Platform Administrator</li><li>Compliance Reviewer</li></ul></section>
-  <section id="sec-3"><h2>3. User Stories</h2>
-    <article id="col-req-001"><h3>COL-US-001</h3>
-      <p>As an Operations Analyst, I want collection management status in one view so that I can detect risk early.</p>
-      <p><strong>Requirement:</strong> <a href="../requirements/collection-management-brd.html#sec-3">COL-REQ-001</a> | <strong>Backlog:</strong> <a href="../backlog/collection-management-backlog.html#col-req-001">COL-TASK-001</a></p>
-      <table><thead><tr><th>Acceptance Criteria ID</th><th>Criteria</th></tr></thead><tbody>
-        <tr><td>AC-1</td><td>Expected operational visibility is available for assigned stakeholders.</td></tr>
-        <tr><td>AC-2</td><td>Alert/incident workflow follows defined severity and escalation policy.</td></tr>
-        <tr><td>AC-3</td><td>Actions are auditable and linked to runbook guidance.</td></tr>
-      </tbody></table>
-    </article>
-
-    <article id="col-req-002"><h3>COL-US-002</h3>
-      <p>As an Incident Manager, I want prioritized alerts and escalation so that response is consistent.</p>
-      <p><strong>Requirement:</strong> <a href="../requirements/collection-management-brd.html#sec-3">COL-REQ-002</a> | <strong>Backlog:</strong> <a href="../backlog/collection-management-backlog.html#col-req-002">COL-TASK-002</a></p>
-      <table><thead><tr><th>Acceptance Criteria ID</th><th>Criteria</th></tr></thead><tbody>
-        <tr><td>AC-1</td><td>Expected operational visibility is available for assigned stakeholders.</td></tr>
-        <tr><td>AC-2</td><td>Alert/incident workflow follows defined severity and escalation policy.</td></tr>
-        <tr><td>AC-3</td><td>Actions are auditable and linked to runbook guidance.</td></tr>
-      </tbody></table>
-    </article>
-
-    <article id="col-req-003"><h3>COL-US-003</h3>
-      <p>As a Compliance Reviewer, I want traceable actions and summaries so that reviews are efficient.</p>
-      <p><strong>Requirement:</strong> <a href="../requirements/collection-management-brd.html#sec-3">COL-REQ-003</a> | <strong>Backlog:</strong> <a href="../backlog/collection-management-backlog.html#col-req-003">COL-TASK-003</a></p>
-      <table><thead><tr><th>Acceptance Criteria ID</th><th>Criteria</th></tr></thead><tbody>
-        <tr><td>AC-1</td><td>Expected operational visibility is available for assigned stakeholders.</td></tr>
-        <tr><td>AC-2</td><td>Alert/incident workflow follows defined severity and escalation policy.</td></tr>
-        <tr><td>AC-3</td><td>Actions are auditable and linked to runbook guidance.</td></tr>
-      </tbody></table>
-    </article>
+  <h2 id="toc-heading">Table of Contents</h2>
+  <ol><li><a href="#executive-summary">Executive Summary</a></li><li><a href="#parent-traceability">Parent Requirement and Epic</a></li><li><a href="#enhanced-stories">Enhanced User Stories</a></li><li><a href="#related-backlog-tasks">Related Backlog Tasks</a></li><li><a href="#revision-history">Revision History</a></li></ol>
 </section>
-  <section id="sec-4"><h2>4. Traceability Links</h2><p>Requirements: <a href="../requirements/collection-management-brd.html">Collection Management BRD</a> | Backlog: <a href="../backlog/collection-management-backlog.html">Collection Management Backlog</a></p></section>
-  <section id="sec-5"><h2>5. Revision History</h2><table><thead><tr><th>Date</th><th>Version</th><th>Change</th><th>Author</th></tr></thead><tbody><tr><td>2026-06-09</td><td>1.0</td><td>Initial user stories</td><td>Copilot Coding Agent</td></tr></tbody></table></section>
-
+  <section id="executive-summary"><h2>Executive Summary</h2><p>This story set translates the MVP-refactored backlog into outcome-focused user narratives for collection management, with direct links back to the parent requirement, epic, sprint, and backlog task.</p></section><section id="parent-traceability" class="traceability-summary"><h2>Parent Requirement and Epic</h2><ul class="nested-list"><li><strong>Epic:</strong> <a href="../epics/collection-management-epic.html">Collection Management Epic Overview</a></li><li><strong>Requirement Document:</strong> <a href="../requirements/collection-management-brd.html">Collection Management BRD</a></li><li><strong>Sprint:</strong> <a href="../sprints.html#sprint-1">Sprint 1</a> · <span class="phase-chip phase-foundation">Foundation</span></li></ul></section><section id="enhanced-stories"><h2>Enhanced User Stories</h2><div class="card-grid"><article class="trace-card" id="col-req-001"><h3><span class="eyebrow">COL-US-001</span> Deliver Consistent Operational Data Intake Governance</h3><p class="story-line">As a Medstreaming operations stakeholder, I want consistent operational data intake so that ensure operational information is gathered consistently so health decisions are based on complete and current evidence.</p><ul class="nested-list">
+      <li><strong>Business Objective:</strong> Ensure operational information is gathered consistently so health decisions are based on complete and current evidence.</li>
+      <li><strong>Scope:</strong> Include oversight practices, evidence retention expectations, and operating guidance to sustain reliable daily use.</li>
+      <li><strong>Implementation Guidance:</strong> Develop a system that records activity history, preserves required evidence, and guides teams through repeatable operations.</li>
+      <li><strong>Expected Outcome:</strong> Operations teams can run the capability confidently with traceable oversight and repeatable execution.</li>
+      <li><strong>Sprint:</strong> <span class="phase-chip phase-foundation">Sprint 1</span></li>
+      <li><strong>Phase:</strong> Foundation</li>
+      <li><strong>Status:</strong> <span class="status-chip status-mvp">MVP</span></li>
+      <li><strong>Dependencies:</strong><ul><li><a href="../backlog/collection-management-backlog.html#col-req-003">Provide Consistent Operational Data Intake Control Policies</a></li></ul></li>
+    </ul><p><strong>Parent Requirement:</strong> <a href="../requirements/collection-management-brd.html#col-req-001">COL-REQ-001</a> · <strong>Epic:</strong> <a href="../epics/collection-management-epic.html">Collection Management Epic</a></p></article><article class="trace-card" id="col-req-002"><h3><span class="eyebrow">COL-US-002</span> Enable Consistent Operational Data Intake Setup</h3><p class="story-line">As a Medstreaming operations stakeholder, I want consistent operational data intake so that ensure operational information is gathered consistently so health decisions are based on complete and current evidence.</p><ul class="nested-list">
+      <li><strong>Business Objective:</strong> Ensure operational information is gathered consistently so health decisions are based on complete and current evidence.</li>
+      <li><strong>Scope:</strong> Create the initial consistent operational data intake capability by defining participating assets, ownership assignments, and usage boundaries.</li>
+      <li><strong>Implementation Guidance:</strong> Create a mechanism that captures operational context, ownership, and classification information for controlled use.</li>
+      <li><strong>Expected Outcome:</strong> Operations teams can start using consistent operational data intake with clear accountability and consistent setup standards.</li>
+      <li><strong>Sprint:</strong> <span class="phase-chip phase-foundation">Sprint 1</span></li>
+      <li><strong>Phase:</strong> Foundation</li>
+      <li><strong>Status:</strong> <span class="status-chip status-mvp">MVP</span></li>
+      <li><strong>Dependencies:</strong><ul><li>No upstream dependency</li></ul></li>
+    </ul><p><strong>Parent Requirement:</strong> <a href="../requirements/collection-management-brd.html#col-req-002">COL-REQ-002</a> · <strong>Epic:</strong> <a href="../epics/collection-management-epic.html">Collection Management Epic</a></p></article><article class="trace-card" id="col-req-003"><h3><span class="eyebrow">COL-US-003</span> Provide Consistent Operational Data Intake Control Policies</h3><p class="story-line">As a Medstreaming operations stakeholder, I want consistent operational data intake so that ensure operational information is gathered consistently so health decisions are based on complete and current evidence.</p><ul class="nested-list">
+      <li><strong>Business Objective:</strong> Ensure operational information is gathered consistently so health decisions are based on complete and current evidence.</li>
+      <li><strong>Scope:</strong> Include business rules for prioritization, severity handling, and response timing so teams can act consistently.</li>
+      <li><strong>Implementation Guidance:</strong> Establish a process that applies configurable decision criteria and escalation pathways to operational conditions.</li>
+      <li><strong>Expected Outcome:</strong> Operations teams can prioritize work using agreed decision rules and respond with consistent urgency.</li>
+      <li><strong>Sprint:</strong> <span class="phase-chip phase-foundation">Sprint 1</span></li>
+      <li><strong>Phase:</strong> Foundation</li>
+      <li><strong>Status:</strong> <span class="status-chip status-mvp">MVP</span></li>
+      <li><strong>Dependencies:</strong><ul><li><a href="../backlog/collection-management-backlog.html#col-req-002">Enable Consistent Operational Data Intake Setup</a></li></ul></li>
+    </ul><p><strong>Parent Requirement:</strong> <a href="../requirements/collection-management-brd.html#col-req-003">COL-REQ-003</a> · <strong>Epic:</strong> <a href="../epics/collection-management-epic.html">Collection Management Epic</a></p></article></div></section><section id="related-backlog-tasks" class="related-backlog-tasks"><h2>Related Backlog Tasks</h2><ul class="task-list related-list"><li><a href="../backlog/collection-management-backlog.html#col-req-001">COL-TASK-001 · Deliver Consistent Operational Data Intake Governance</a> - Sprint 1</li><li><a href="../backlog/collection-management-backlog.html#col-req-002">COL-TASK-002 · Enable Consistent Operational Data Intake Setup</a> - Sprint 1</li><li><a href="../backlog/collection-management-backlog.html#col-req-003">COL-TASK-003 · Provide Consistent Operational Data Intake Control Policies</a> - Sprint 1</li></ul></section><section id="revision-history"><h2>Revision History</h2><table><thead><tr><th>Date</th><th>Version</th><th>Change</th><th>Author</th></tr></thead><tbody><tr><td>2026-06-10</td><td>2.0</td><td>Replaced generic user stories with enhanced delivery narratives and sprint traceability.</td><td>Copilot Coding Agent</td></tr></tbody></table></section>
+  
 </main>
 </div>
 </body>
