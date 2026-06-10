@@ -40,3 +40,13 @@ details { border: 1px solid var(--border); border-radius: 6px; padding: .5rem; m
   a { color: #000; text-decoration: none; }
   section, article { border-color: #bbb; }
 }
+
+
+.lead { color: var(--muted); font-size: 1.05rem; margin-top: .4rem; }
+.layer-grid, .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: .8rem; }
+.quick-card { background: #f8fbff; border: 1px solid #c9d9ef; border-radius: 8px; padding: .8rem; }
+.quick-card h3 { margin-top: 0; margin-bottom: .4rem; color: var(--brand); }
+.dependency-flow { font-weight: 600; color: #0b2d4b; background: #eef4fb; border: 1px solid #d7e4f5; border-radius: 8px; padding: .7rem; }
+.cta-link { display: inline-block; background: var(--brand); color: #fff !important; text-decoration: none; padding: .45rem .8rem; border-radius: 6px; margin-right: .4rem; }
+.cta-link:hover { opacity: .92; text-decoration: none; }
+.layer-row td { background: #e8f0fb; font-weight: 700; color: #0b2d4b; }
