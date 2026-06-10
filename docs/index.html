@@ -22,6 +22,7 @@
     <li><a href="index.html#requirements-catalog">Requirements</a></li>
     <li><a href="index.html#stories-catalog">User Stories</a></li>
     <li><a href="index.html#backlog-catalog">Backlog</a></li>
+    <li><a href="implementation-backlog.html">Implementation Backlog</a></li>
   </ul>
 </nav>
 
@@ -29,11 +30,12 @@
   <header>
     <p class="breadcrumbs">Home</p>
     <h1>MedWatch Business Analysis Documentation Portal</h1>
+    <p class="lead">Implementation-ready documentation for Medstreaming's monitoring platform with dependency-aware sequencing and delivery traceability.</p>
   </header>
   <section class="toc" aria-labelledby="toc-heading">
     <h2 id="toc-heading">Table of Contents</h2>
     <ol>
-      <li><a href="#sec-1">1. Project Overview</a></li><li><a href="#sec-2">2. Portal Search</a></li><li><a href="#sec-3">3. Epic Catalog</a></li><li><a href="#sec-4">4. Requirements Catalog</a></li><li><a href="#sec-5">5. User Story Catalog</a></li><li><a href="#sec-6">6. Backlog Catalog</a></li><li><a href="#sec-7">7. MVP Scope Catalog</a></li><li><a href="#sec-8">8. Traceability Matrix Summary</a></li><li><a href="#sec-9">9. Revision History</a></li>
+      <li><a href="#sec-1">1. Project Overview</a></li><li><a href="#sec-2">2. Portal Search</a></li><li><a href="#implementation-readiness">3. Implementation Readiness Hub</a></li><li><a href="#dependency-summary">4. Dependency Summary</a></li><li><a href="#epic-catalog">5. Epic Catalog</a></li><li><a href="#requirements-catalog">6. Requirements Catalog</a></li><li><a href="#stories-catalog">7. User Story Catalog</a></li><li><a href="#backlog-catalog">8. Backlog Catalog</a></li><li><a href="#reports-catalog">9. MVP Scope Catalog</a></li><li><a href="#sec-8">10. Traceability Matrix Summary</a></li><li><a href="#sec-9">11. Revision History</a></li>
     </ol>
   </section>
   
@@ -42,6 +44,19 @@
     <label for="portal-search">Search catalog entries</label>
     <input id="portal-search" type="search" placeholder="Search by capability, document type, or keyword" />
   </section>
+  <section id="implementation-readiness"><h2>Implementation Readiness Hub</h2>
+    <p>Use this section to execute the backlog in strict dependency order and accelerate delivery readiness.</p>
+    <p><a class="cta-link" href="implementation-backlog.html">Open the implementation-ready prioritized backlog</a> and <a href="backlog-prioritized.csv" download>download CSV for Azure DevOps import</a>.</p>
+    <div class="layer-grid">
+      <article class="quick-card"><h3>Foundation Layer</h3><p>Agent Management, Collection Management, Security and Access</p><p><a href="backlog/agent-management-backlog.html">Agent</a> · <a href="backlog/collection-management-backlog.html">Collection</a> · <a href="backlog/access-control-and-audit-backlog.html">Security</a></p></article>
+      <article class="quick-card"><h3>Core Platform Layer</h3><p>Infrastructure, service, process, queue, data exchange, and availability monitoring</p><p><a href="backlog/monitoring-backlog.html">Infrastructure</a> · <a href="backlog/service-health-monitoring-backlog.html">Service Health</a> · <a href="backlog/data-exchange-monitoring-backlog.html">Data Exchange</a></p></article>
+      <article class="quick-card"><h3>Operational Layer</h3><p>Alerting, notifications, incidents, and logs management workflows</p><p><a href="backlog/alerting-backlog.html">Alerting</a> · <a href="backlog/incident-management-backlog.html">Incidents</a> · <a href="backlog/logs-management-backlog.html">Logs</a></p></article>
+      <article class="quick-card"><h3>Automation Layer</h3><p>Rule engine, remediation, and automation control</p><p><a href="backlog/rule-engine-management-backlog.html">Rules</a> · <a href="backlog/remediation-management-backlog.html">Remediation</a> · <a href="backlog/automation-management-backlog.html">Automation</a></p></article>
+      <article class="quick-card"><h3>Presentation Layer</h3><p>Dashboards and operational reporting visibility</p><p><a href="backlog/dashboard-backlog.html">Dashboard</a> · <a href="backlog/reports-backlog.html">Reporting</a></p></article>
+      <article class="quick-card"><h3>Advanced Features</h3><p>AI, maintenance windows, and auto-updates</p><p><a href="backlog/ai-management-backlog.html">AI</a> · <a href="backlog/maintenance-window-management-backlog.html">Maintenance</a> · <a href="backlog/auto-update-management-backlog.html">Auto-Update</a></p></article>
+    </div>
+  </section>
+  <section id="dependency-summary"><h2>Dependency Summary</h2><p class="dependency-flow">Foundation Layer → Core Platform Layer → Operational Layer → Automation Layer → Presentation Layer → Advanced Features</p><p>Core platform backlog explicitly includes service health and healthcare integration monitoring capabilities such as HL7 and PACS service visibility.</p></section>
   <section id="epic-catalog"><h2>3. Epic Catalog</h2><ul class="catalog" id="epics-list"><li data-search="infrastructure monitoring epic infrastructure-monitoring"><a href="epics/monitoring-epic.html">Infrastructure Monitoring Epic</a></li>
 <li data-search="service health monitoring epic service-health-monitoring"><a href="epics/service-health-monitoring-epic.html">Service Health Monitoring Epic</a></li>
 <li data-search="business process monitoring epic business-process-monitoring"><a href="epics/business-process-monitoring-epic.html">Business Process Monitoring Epic</a></li>
@@ -125,7 +140,7 @@
 <li data-search="reports backlog tasks reports"><a href="backlog/reports-backlog.html">Reports Backlog</a></li>
 <li data-search="ai management backlog tasks ai-management"><a href="backlog/ai-management-backlog.html">AI Management Backlog</a></li>
 <li data-search="access control and audit backlog tasks access-control-and-audit"><a href="backlog/access-control-and-audit-backlog.html">Access Control and Audit Backlog</a></li>
-<li data-search="maintenance window management backlog tasks maintenance-window-management"><a href="backlog/maintenance-window-management-backlog.html">Maintenance Window Management Backlog</a></li></ul></section>
+<li data-search="maintenance window management backlog tasks maintenance-window-management"><a href="backlog/maintenance-window-management-backlog.html">Maintenance Window Management Backlog</a></li><li data-search="implementation prioritized backlog dependency order csv azure devops"><a href="implementation-backlog.html">Implementation-Ready Prioritized Backlog</a></li></ul></section>
   <section id="reports-catalog"><h2>7. MVP Scope Catalog</h2><ul class="catalog" id="reports-list"><li data-search="infrastructure monitoring mvp scope infrastructure-monitoring"><a href="reports/infrastructure-monitoring-mvp-scope.html">Infrastructure Monitoring MVP Scope</a></li>
 <li data-search="service health monitoring mvp scope service-health-monitoring"><a href="reports/service-health-monitoring-mvp-scope.html">Service Health Monitoring MVP Scope</a></li>
 <li data-search="business process monitoring mvp scope business-process-monitoring"><a href="reports/business-process-monitoring-mvp-scope.html">Business Process Monitoring MVP Scope</a></li>
